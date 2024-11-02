@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Dashboard | agriBridge</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="gvtdash.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-left">
+                <img src="LogoNoBG.png" alt="agriBridge" class="nav-logo">
+                <ul class="nav-items">
+                    <li><a href="#officers">Government Officers</a></li>
+                    <li><a href="#offices">Government Offices</a></li>
+                    <li><a href="#loans">Loan Financing</a></li>
+                    <li><a href="#training">Training Status</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <i class="fa-solid fa-database databaseicon"></i>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="officers" class="dashboard-section">
+            <h2>Government Officers</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Officer ID</th>
+                        <th>Position Title</th>
+                        <th>Department</th>
+                        <th>Responsibilities</th>
+                        <th>Availability</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>101</td>
+                        <td>Senior Agriculture Officer</td>
+                        <td>Agriculture</td>
+                        <td>Supervising crop advisory services</td>
+                        <td>Available</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="offices" class="dashboard-section">
+            <h2>Government Offices</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Office ID</th>
+                        <th>Location</th>
+                        <th>Contact Number</th>
+                        <th>Service Information</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>201</td>
+                        <td>Dhaka Agriculture Office</td>
+                        <td>01325409987</td>
+                        <td>Crop advisory, pest control support</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="loans" class="dashboard-section">
+            <h2>Loan Financing for Farmers</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Farmer ID</th>
+                        <th>Farmer Name</th>
+                        <th>Loan Amount</th>
+                        <th>Financing Officer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>F001</td>
+                        <td>Naef Babar</td>
+                        <td>5,000 tk.</td>
+                        <td>Officer 101 - Ansar Miah</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="training" class="dashboard-section">
+            <h2>Farmer Training Status</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Farmer ID</th>
+                        <th>Farmer Name</th>
+                        <th>Training Sessions Completed</th>
+                        <th>Current Training Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>F002</td>
+                        <td>Shihab Kazi</td>
+                        <td>3</td>
+                        <td>In Progress</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 agriBridge. All rights reserved.</p>
+    </footer>
+</body>
+</html>

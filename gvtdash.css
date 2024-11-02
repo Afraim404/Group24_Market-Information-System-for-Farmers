@@ -1,0 +1,124 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: hsl(60, 39%, 89%);
+    color: hsl(340, 3%, 19%);
+}
+
+header {
+    background-color: hsl(60, 39%, 89%);
+    padding: 0.75rem;
+    border-bottom: 1px solid hsl(340, 3%, 19%);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-left, .nav-right {
+    display: flex;
+    align-items: center;
+}
+
+.nav-logo {
+    width: 150px;
+    margin-right: 1rem;
+}
+
+.nav-items {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-items a {
+    text-decoration: none;
+    color: hsl(340, 3%, 19%);
+    padding: 0.5rem 1rem;
+    transition: color 0.3s;
+}
+
+.nav-items a:hover {
+    color: hsl(96, 100%, 33%);
+}
+
+.dashboard-section {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    width: 90%;
+}
+
+.dashboard-section h2 {
+    color: hsl(96, 100%, 33%);
+    margin-bottom: 15px;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 16px;
+}
+
+.data-table thead {
+    background-color: hsl(64, 63%, 35%); 
+    color: hsl(0, 0%, 96%);
+}
+
+.data-table th, .data-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid hsl(340, 3%, 19%);
+}
+
+.data-table tr:hover {
+    background-color: hsl(60, 39%, 89%);
+}
+
+.data-table th {
+    font-weight: bold;
+}
+
+.data-table td {
+    color: hsl(340, 3%, 19%);
+}
+
+footer {
+    background-color: hsl(340, 3%, 19%);
+    color: hsl(0, 0%, 71%);
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+    border-top: 2px solid hsl(60, 39%, 89%);
+}
+
+@media (max-width: 768px) {
+    .nav-left, .nav-right {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .dashboard-section {
+        padding: 15px;
+    }
+
+    .data-table th, .data-table td {
+        padding: 10px;
+    }
+
+    .btn-secondary, .btn-primary {
+        width: 100%;
+        text-align: center;
+    }
+}
