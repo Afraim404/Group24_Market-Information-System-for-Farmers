@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>agriBridge | Loan Application</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="loanapp.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-left">
+                <img src="LogoNoBG.png" alt="agriBridge" class="nav-logo">
+                <ul class="nav-items">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#market-prices">Market Prices</a></li>
+                    <li><a href="#buyers-sellers">Buyers & Sellers</a></li>
+                    <li><a href="#price-trends">Price Trends</a></li>
+                    <li><a href="#contact">Blogs</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <a href="#signin" class="btn-secondary">Sign in</a>
+                <a href="#getintouch" class="btn-primary">Get in touch</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="loan-section">
+            <h1>Loan Application</h1>
+            <p>Apply for financial assistance to grow your farming business. Please fill out the details below.</p>
+
+            <form class="loan-form">
+                <div class="form-group">
+                    <label for="farmer-name">Farmer's Name</label>
+                    <input type="text" id="farmer-name" name="farmer-name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="farmer-id">Farmer ID</label>
+                    <input type="text" id="farmer-id" name="farmer-id" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="farm-location">Farm Location</label>
+                    <input type="text" id="farm-location" name="farm-location" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="loan-amount">Loan Amount (BDT)</label>
+                    <input type="number" id="loan-amount" name="loan-amount" required min="0" step="100">
+                </div>
+
+                <div class="form-group">
+                    <label for="loan-purpose">Loan Purpose</label>
+                    <select id="loan-purpose" name="loan-purpose" required>
+                        <option value="equipment">Farm Equipment Purchase</option>
+                        <option value="fertilizers">Fertilizers and Seeds</option>
+                        <option value="irrigation">Irrigation Systems</option>
+                        <option value="storage">Storage Facilities</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="additional-info">Additional Information</label>
+                    <textarea id="additional-info" name="additional-info" rows="4" placeholder="Any specific details or requirements"></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary">Submit Application</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 agriBridge. All rights reserved.</p>
+    </footer>
+</body>
+</html>

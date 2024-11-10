@@ -184,6 +184,23 @@ nav {
     background-color: hsl(63.98, 79.04%, 55.1%);
 }
 
+.apply-loan-button {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: hsl(63.98, 79.04%, 55.1%);
+    color: hsl(340, 3%, 19%);
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.apply-loan-button:hover {
+    background-color: hsl(96, 100%, 33%);
+    transform: scale(1.05);
+}
+
+
 footer {
     background-color: hsl(340, 3%, 19%);
     color: hsl(0, 0%, 71%);

@@ -1,4 +1,4 @@
-/* Reset and Basic Styling */
+/* General Styles */
 * {
     margin: 0;
     padding: 0;
@@ -24,18 +24,8 @@ nav {
     align-items: center;
 }
 
-.nav-left, .nav-right {
-    display: flex;
-    align-items: center;
-}
-
-.databaseicon {
-    margin-right: 1rem;
-}
-
 .nav-logo {
     width: 150px;
-    margin-right: 1rem;
 }
 
 .nav-items {
@@ -55,64 +45,72 @@ nav {
     color: hsl(96, 100%, 33%);
 }
 
-/* Main Content Styling */
-.dashboard-section {
+/* Loan Section */
+.loan-section {
     padding: 2rem;
-    margin: 2rem 0;
-    border-bottom: 2px solid hsl(60, 39%, 89%);
+    text-align: center;
 }
 
-.dashboard-section h2 {
-    font-size: 1.8rem;
+.loan-section h1 {
+    font-size: 2.5rem;
     color: hsl(96, 100%, 33%);
     margin-bottom: 1rem;
-    border-bottom: 2px solid hsl(340, 3%, 19%);
-    padding-bottom: 0.5rem;
 }
 
-/* Data Table Styling */
-.data-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
+.loan-section p {
+    font-size: 1rem;
+    margin-bottom: 2rem;
 }
 
-.data-table th, .data-table td {
-    border: 1px solid hsl(340, 3%, 19%);
-    padding: 0.75rem 1rem;
-    text-align: left;
-    color: hsl(0, 0%, 96%);
+/* Loan Form */
+.loan-form {
+    max-width: 500px;
+    margin: 0 auto;
     background-color: hsl(340, 3%, 19%);
-}
-
-.data-table th {
-    background-color: hsl(96, 100%, 33%);
     color: hsl(0, 0%, 96%);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-.data-table tr:nth-child(even) td {
-    background-color: hsl(340, 3%, 27%);
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
 }
 
-/* Button Styles */
-.approve-button {
-    padding: 0.5rem 1rem;
+.form-group label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.btn-primary {
     background-color: hsl(63.98, 79.04%, 55.1%);
+    color: hsl(340, 3%, 19%);
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
     border: none;
     border-radius: 5px;
-    color: hsl(340, 3%, 19%);
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.approve-button:hover {
+.btn-primary:hover {
     background-color: hsl(96, 100%, 33%);
     transform: scale(1.05);
-}
-
-.approve-button:disabled {
-    background-color: hsl(60, 10%, 75%);
-    cursor: not-allowed;
 }
 
 /* Footer */
@@ -121,6 +119,7 @@ footer {
     color: hsl(0, 0%, 71%);
     text-align: center;
     padding: 1rem;
+    margin-top: 2rem;
     font-size: 0.9rem;
     border-top: 2px solid hsl(60, 39%, 89%);
 }

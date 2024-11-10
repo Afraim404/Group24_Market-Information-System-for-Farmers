@@ -17,6 +17,8 @@
                     <li><a href="#offices">Government Offices</a></li>
                     <li><a href="#loans">Loan Financing</a></li>
                     <li><a href="#training">Training Status</a></li>
+                    <li><a href="#loan-approval">Loan Applications</a></li>
+                    <li><a href="#training-approval">Training Applications</a></li>
                 </ul>
             </div>
             <div class="nav-right">
@@ -26,6 +28,7 @@
     </header>
 
     <main>
+        <!-- Government Officers Section -->
         <section id="officers" class="dashboard-section">
             <h2>Government Officers</h2>
             <table class="data-table">
@@ -50,6 +53,7 @@
             </table>
         </section>
 
+        <!-- Government Offices Section -->
         <section id="offices" class="dashboard-section">
             <h2>Government Offices</h2>
             <table class="data-table">
@@ -72,6 +76,7 @@
             </table>
         </section>
 
+        <!-- Loan Financing Section -->
         <section id="loans" class="dashboard-section">
             <h2>Loan Financing for Farmers</h2>
             <table class="data-table">
@@ -94,6 +99,7 @@
             </table>
         </section>
 
+        <!-- Farmer Training Status Section -->
         <section id="training" class="dashboard-section">
             <h2>Farmer Training Status</h2>
             <table class="data-table">
@@ -115,10 +121,90 @@
                 </tbody>
             </table>
         </section>
+
+        <!-- Loan Applications Approval Section -->
+        <section id="loan-approval" class="dashboard-section">
+            <h2>Approve Loan Applications</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Application ID</th>
+                        <th>Farmer ID</th>
+                        <th>Farmer Name</th>
+                        <th>Requested Amount</th>
+                        <th>Purpose</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>LA001</td>
+                        <td>F003</td>
+                        <td>Rahul Das</td>
+                        <td>10,000 tk.</td>
+                        <td>Farm Equipment</td>
+                        <td><button class="approve-button">Approve</button></td>
+                    </tr>
+                    <tr>
+                        <td>LA002</td>
+                        <td>F004</td>
+                        <td>Fatema Khatun</td>
+                        <td>15,000 tk.</td>
+                        <td>Irrigation System</td>
+                        <td><button class="approve-button">Approve</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Training Applications Approval Section -->
+        <section id="training-approval" class="dashboard-section">
+            <h2>Approve Training Applications</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Application ID</th>
+                        <th>Farmer ID</th>
+                        <th>Farmer Name</th>
+                        <th>Training Type</th>
+                        <th>Requested Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>TA001</td>
+                        <td>F005</td>
+                        <td>Jahangir Alam</td>
+                        <td>Crop Management</td>
+                        <td>12/15/2024</td>
+                        <td><button class="approve-button">Approve</button></td>
+                    </tr>
+                    <tr>
+                        <td>TA002</td>
+                        <td>F006</td>
+                        <td>Sonia Akter</td>
+                        <td>Pest Control</td>
+                        <td>12/20/2024</td>
+                        <td><button class="approve-button">Approve</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
     </main>
 
     <footer>
         <p>&copy; 2024 agriBridge. All rights reserved.</p>
     </footer>
+
+    <script>
+        // JavaScript to handle approval actions
+        document.querySelectorAll('.approve-button').forEach(button => {
+            button.addEventListener('click', () => {
+                button.textContent = 'Approved';
+                button.disabled = true;
+            });
+        });
+    </script>
 </body>
 </html>
