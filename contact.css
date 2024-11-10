@@ -1,0 +1,104 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: hsl(60, 39%, 89%);
+    color: hsl(340, 3%, 19%);
+}
+
+header {
+    background-color: hsl(60, 39%, 89%);
+    padding: 0.75rem;
+    border-bottom: 1px solid hsl(340, 3%, 19%);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    width: 150px;
+    margin-right: 1rem;
+}
+
+.nav-items {
+    list-style: none;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.nav-items a {
+    text-decoration: none;
+    color: hsl(340, 3%, 19%);
+    padding: 0.5rem 1rem;
+    transition: color 0.3s;
+}
+
+.nav-items a:hover {
+    color: hsl(96, 100%, 33%);
+}
+
+.contact-section {
+    padding: 2rem;
+    text-align: center;
+}
+
+.contact-section h1 {
+    font-size: 2.5rem;
+    color: hsl(96, 100%, 33%);
+    margin-bottom: 1rem;
+}
+
+.contact-section p {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+.support-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.support-card {
+    background-color: hsl(340, 3%, 19%);
+    color: hsl(0, 0%, 96%);
+    width: 250px;
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.support-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.support-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.support-card p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+footer {
+    background-color: hsl(340, 3%, 19%);
+    color: hsl(0, 0%, 71%);
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    border-top: 2px solid hsl(60, 39%, 89%);
+}

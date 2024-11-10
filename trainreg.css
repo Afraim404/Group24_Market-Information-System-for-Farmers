@@ -1,0 +1,120 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: hsl(60, 39%, 89%);
+    color: hsl(340, 3%, 19%);
+}
+
+header {
+    background-color: hsl(60, 39%, 89%);
+    padding: 0.75rem;
+    border-bottom: 1px solid hsl(340, 3%, 19%);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    width: 150px;
+}
+
+.nav-items {
+    list-style: none;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.nav-items a {
+    text-decoration: none;
+    color: hsl(340, 3%, 19%);
+    padding: 0.5rem 1rem;
+    transition: color 0.3s;
+}
+
+.nav-items a:hover {
+    color: hsl(96, 100%, 33%);
+}
+
+.training-section {
+    padding: 2rem;
+    text-align: center;
+}
+
+.training-section h1 {
+    font-size: 2.5rem;
+    color: hsl(96, 100%, 33%);
+    margin-bottom: 1rem;
+}
+
+.training-section p {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+.training-form {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: hsl(340, 3%, 19%);
+    color: hsl(0, 0%, 96%);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.btn-primary {
+    background-color: hsl(63.98, 79.04%, 55.1%);
+    color: hsl(340, 3%, 19%);
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: hsl(96, 100%, 33%);
+    transform: scale(1.05);
+}
+
+footer {
+    background-color: hsl(340, 3%, 19%);
+    color: hsl(0, 0%, 71%);
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    border-top: 2px solid hsl(60, 39%, 89%);
+}
