@@ -1,4 +1,3 @@
-/* General Styles */
 * {
     margin: 0;
     padding: 0;
@@ -11,7 +10,6 @@ body {
     color: hsl(340, 3%, 19%);
 }
 
-/* Header and Navigation */
 header {
     background-color: hsl(60, 39%, 89%);
     padding: 0.75rem;
@@ -45,7 +43,6 @@ nav {
     color: hsl(96, 100%, 33%);
 }
 
-/* Loan Section */
 .loan-section {
     padding: 2rem;
     text-align: center;
@@ -62,7 +59,6 @@ nav {
     margin-bottom: 2rem;
 }
 
-/* Loan Form */
 .loan-form {
     max-width: 500px;
     margin: 0 auto;
@@ -113,7 +109,6 @@ nav {
     transform: scale(1.05);
 }
 
-/* Footer */
 footer {
     background-color: hsl(340, 3%, 19%);
     color: hsl(0, 0%, 71%);
