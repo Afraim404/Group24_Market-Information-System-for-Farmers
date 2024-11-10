@@ -9,32 +9,33 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    font-family: 'Poppins', sans-serif; /* Applying Poppins font */
+    font-family: 'Poppins', sans-serif;
 }
 
 .wrapper {
     width: 420px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, .2);
-    backdrop-filter: blur(20px);
-    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
     color: #fff;
     border-radius: 10px;
     padding: 30px 40px;
+    text-align: center;
 }
 
 .wrapper h1 {
     font-size: 36px;
-    text-align: center;
     font-weight: 600;
+    margin-bottom: 20px;
 }
 
-.wrapper .input-box {
+.input-box {
     position: relative;
     width: 100%;
     height: 50px;
     background: rgba(197, 186, 184, 0.267);
-    margin: 30px 0;
+    margin: 20px 0;
     border-radius: 10px;
 }
 
@@ -44,18 +45,18 @@ body {
     background: transparent;
     border: none;
     outline: none;
-    border: 2px solid rgba(255, 255, 255, .2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 10px;
     font-size: 16px;
     color: #fff;
-    padding: 0 0px 0 2px;
+    padding: 0 2px;
     line-height: 50px;
     font-family: 'Poppins', sans-serif;
 }
 
 .input-box input::placeholder {
     color: #fff;
-    font-family: 'Poppins', sans-serif; 
+    font-family: 'Poppins', sans-serif;
 }
 
 .input-box i {
@@ -65,7 +66,6 @@ body {
     transform: translateY(-50%);
     font-size: 20px;
     color: rgba(255, 255, 255, 0.8);
-    z-index: 1;
 }
 
 .wrapper .remember-forget {
@@ -73,7 +73,6 @@ body {
     justify-content: space-between;
     font-size: 14.5px;
     margin: -15px 0 15px;
-    font-family: 'Poppins', sans-serif;
 }
 
 .remember-forget label input {
@@ -93,15 +92,20 @@ body {
 .wrapper .btn {
     width: 100%;
     height: 45px;
-    background: #fff;
+    background-color: hsl(96, 100%, 33%);
     border: none;
     outline: none;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     font-weight: 600;
-    color: #333;
+    color: #fff;
     font-family: 'Poppins', sans-serif;
+    transition: background-color 0.3s ease;
+}
+
+.wrapper .btn:hover {
+    background-color: hsl(63.98, 79.04%, 55.1%);
 }
 
 .wrapper .register-link {
@@ -114,7 +118,6 @@ body {
     color: #fff;
     text-decoration: none;
     font-weight: 600;
-    font-family: 'Poppins', sans-serif;
 }
 
 .register-link p a:hover {
