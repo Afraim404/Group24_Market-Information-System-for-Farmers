@@ -1,0 +1,185 @@
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #faf9e6;
+    margin: 0;
+    padding: 0;
+    
+  }
+
+  .header-line {
+    width: 100%;
+    height: 1px; 
+    background-color: #333; 
+    margin-top: -10px; 
+}
+
+
+.main-header {
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f5f5e6;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+
+  .header-container {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 20px;
+  }
+
+
+  
+.nav-logo {
+    width: 150px;
+    margin-right: 1rem;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  /* Buttons Style */
+  .nav-button {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .nav-button:hover {
+    background-color: #45a049;
+  }
+  
+
+
+  /* Intro Section */
+.intro {
+    text-align: center;
+    padding: 40px;
+}
+
+.intro h2 {
+    font-size: 50px;
+    color: #333;
+}
+
+.intro p {
+    font-size: 20px;
+    color: hsl(96, 100%, 33%);
+    max-width: 800px;
+    margin: 10px auto;
+}
+  
+
+
+
+
+
+  .loan-list {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 10px;
+  }
+  
+  .loan-list h2 {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .loan-card {
+    background-color: #333;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+  }
+  
+  .loan-card h3 {
+    margin: 0;
+    color: #4CAF50;
+    font-size: 1.5em;
+  }
+  
+  .loan-card p {
+    margin: 5px 0;
+    color: #f4eeee;
+  }
+  
+  .apply-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .apply-button:hover {
+    background-color: #45a049;
+  }
+  
+  .comparison-tool {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 10px;
+  }
+  
+  .comparison-tool h2 {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  table, th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  th {
+    background-color: #4CAF50;
+    color: white;
+    text-align: left;
+  }
+  
+  td {
+    color: #555;
+  }
+  
+  a {
+    color: #4CAF50;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #f1f1f1;
+    color: #555;
+  }
+  

@@ -1,0 +1,121 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #faf9e6; 
+    margin: 0;
+    padding: 0;
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #faf9e6; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.nav-logo {
+    width: 150px;
+}
+
+.nav-links a {
+    color: #333;
+    margin: 0 10px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-button {
+    padding: 8px 16px;
+    background-color: #4CAF50; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+    background-color: #45a049;
+}
+
+
+.content {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.content h1 {
+    font-size: 2em;
+    color: #333; /* Dark title text color */
+    margin-bottom: 10px;
+}
+
+.content p {
+    color: #4CAF50; 
+    margin-bottom: 20px;
+}
+
+.resource-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.resource-card {
+    background-color: #333; 
+    color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    width: calc(50% - 20px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.resource-card h3 {
+    color: #4CAF50; 
+    margin-top: 0;
+    font-size: 1.4em;
+}
+
+.resource-card p {
+    color: #ccc; 
+    font-size: 0.95em;
+}
+
+.learn-more-button {
+    display: block;
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #4CAF50; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.learn-more-button:hover {
+    background-color: #45a049;
+}
+
+
+footer {
+    text-align: center;
+    padding: 10px;
+    color: #666;
+    font-size: 0.9em;
+}
