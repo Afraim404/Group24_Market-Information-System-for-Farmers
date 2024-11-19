@@ -9,13 +9,20 @@
 body {
     background-color: hsl(60, 39%, 89%);
     color: hsl(340, 3%, 19%);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-/* Header and Navigation */
 header {
     background-color: hsl(60, 39%, 89%);
-    padding: 0.75rem;
-    border-bottom: 1px solid hsl(340, 3%, 19%);
+    padding: 1rem 2rem;
+    border-bottom: 2px solid hsl(340, 3%, 19%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 nav {
@@ -27,6 +34,7 @@ nav {
 .nav-left, .nav-right {
     display: flex;
     align-items: center;
+    gap: 1rem;
 }
 
 .databaseicon {
@@ -34,40 +42,45 @@ nav {
 }
 
 .nav-logo {
-    width: 150px;
+    width: 140px;
     margin-right: 1rem;
 }
 
 .nav-items {
     list-style: none;
     display: flex;
-    gap: 0.5rem;
+    gap: 1rem;
 }
 
 .nav-items a {
     text-decoration: none;
     color: hsl(340, 3%, 19%);
     padding: 0.5rem 1rem;
-    transition: color 0.3s;
+    transition: color 0.3s, background-color 0.3s;
+    border-radius: 5px;
 }
 
 .nav-items a:hover {
     color: hsl(96, 100%, 33%);
+    background-color: hsl(340, 3%, 95%);
 }
 
-/* Main Content Styling */
+/* Dashboard Section */
 .dashboard-section {
     padding: 2rem;
-    margin: 2rem 0;
-    border-bottom: 2px solid hsl(60, 39%, 89%);
+    margin: 2rem auto;
+    max-width: 1200px;
+    background: hsl(0, 0%, 96%);
+    border-radius: 10px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
 }
 
 .dashboard-section h2 {
-    font-size: 1.8rem;
+    font-size: 2rem;
     color: hsl(96, 100%, 33%);
     margin-bottom: 1rem;
-    border-bottom: 2px solid hsl(340, 3%, 19%);
     padding-bottom: 0.5rem;
+    border-bottom: 2px solid hsl(340, 3%, 19%);
 }
 
 /* Data Table Styling */
@@ -75,18 +88,24 @@ nav {
     width: 100%;
     border-collapse: collapse;
     margin-top: 1rem;
+    border: 1px solid hsl(340, 3%, 19%);
 }
 
 .data-table th, .data-table td {
     border: 1px solid hsl(340, 3%, 19%);
     padding: 0.75rem 1rem;
     text-align: left;
-    color: hsl(0, 0%, 96%);
-    background-color: hsl(340, 3%, 19%);
 }
 
 .data-table th {
     background-color: hsl(96, 100%, 33%);
+    color: hsl(0, 0%, 96%);
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+.data-table td {
+    background-color: hsl(340, 3%, 19%);
     color: hsl(0, 0%, 96%);
 }
 
@@ -100,9 +119,10 @@ nav {
     background-color: hsl(63.98, 79.04%, 55.1%);
     border: none;
     border-radius: 5px;
-    color: hsl(340, 3%, 19%);
+    color: hsl(0, 0%, 96%);
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
+    font-weight: bold;
 }
 
 .approve-button:hover {
@@ -112,7 +132,9 @@ nav {
 
 .approve-button:disabled {
     background-color: hsl(60, 10%, 75%);
+    color: hsl(340, 3%, 19%);
     cursor: not-allowed;
+    opacity: 0.7;
 }
 
 /* Footer */
@@ -123,4 +145,33 @@ footer {
     padding: 1rem;
     font-size: 0.9rem;
     border-top: 2px solid hsl(60, 39%, 89%);
+    margin-top: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .nav-items {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .dashboard-section {
+        padding: 1.5rem;
+        margin: 1.5rem;
+    }
+
+    .data-table th, .data-table td {
+        font-size: 0.9rem;
+        padding: 0.5rem;
+    }
+
+    .approve-button {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
 }

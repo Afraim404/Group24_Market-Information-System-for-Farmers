@@ -1,0 +1,202 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #faf9e6; /* Light background */
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Styles */
+header {
+    background-color: #f5f5e6; /* Light background */
+    color: #333; /* Dark text */
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.admin-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.admin-title img.logo {
+    width: 30px;  /* Adjust the logo size */
+    margin-right: 10px;
+}
+
+nav a {
+    color: #333;  /* Dark text */
+    margin-left: 20px;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    background-color: #f5f5e6; /* Light background */
+    color: #333; /* Dark text */
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 40px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h3 {
+    padding-left: 20px;
+    margin-bottom: 15px;
+    color: #333; /* Dark text */
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #333; /* Dark text */
+    font-size: 16px;
+}
+
+.sidebar ul li a:hover {
+    background-color: #4CAF50;  /* Agribridge Green */
+    color: white;
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 270px;
+    padding: 20px;
+    background-color: #fff;
+}
+
+.dashboard-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.card {
+    background-color: #4CAF50;  /* Agribridge Green */
+    padding: 20px;
+    width: 30%;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+}
+
+.card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.data-table-section,
+.price-trend-section,
+.users-pie-chart-section {
+    margin-bottom: 40px;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th, .data-table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.data-table th {
+    background-color: #4CAF50; /* Agribridge Green */
+    color: white;
+}
+
+.data-table td {
+    background-color: #f4f4f4; /* Light gray */
+}
+
+.data-table td button {
+    margin: 5px;
+    padding: 8px 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.data-table td .btn-primary {
+    background-color: #4CAF50;  /* Agribridge Green */
+    color: white;
+}
+
+.data-table td .btn-danger {
+    background-color: #e74c3c;  /* Red */
+    color: white;
+}
+
+.data-table td button:hover {
+    opacity: 0.9;
+}
+
+.nav-logo img {
+    width: 150px;  /* Adjust the logo size */
+    margin-right: 1rem;
+}
+
+
+/* Chart Containers */
+.chart-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    background-color: #f1f1f1;
+    color: #555;
+    padding: 10px 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .dashboard-section {
+        flex-direction: column;
+    }
+
+    .card {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 10px;
+    }
+
+    .sidebar {
+        width: 200px;
+    }
+}
