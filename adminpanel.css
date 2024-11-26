@@ -1,151 +1,229 @@
 /* General Reset */
-body, html {
+* {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
     box-sizing: border-box;
+    font-family: Helvetica, Arial, sans-serif;
 }
 
 body {
-    background-color: #f9f9f9;
-    color: #333;
-    display: flex;
+    background-color: hsl(60, 39%, 89%);
+    color: hsl(340, 3%, 19%);
 }
 
-/* Dashboard Layout */
-.dashboard {
-    display: grid;
-    grid-template-columns: 250px 1fr;
-    height: 100vh;
+/* Header */
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.2rem 2rem;
+    background-color: hsl(340, 3%, 19%);
+    color: white;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+}
+
+.header-left .logo {
+    height: 50px;
+    width: auto;
+}
+
+.header-right .nav-options {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+}
+
+.header-right .nav-options a {
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.header-right .btn-primary {
+    background-color: hsl(96, 100%, 50%);
+    color: white;
+}
+
+.header-right .btn-primary:hover {
+    background-color: hsl(96, 90%, 40%);
+}
+
+.header-right .btn-secondary {
+    background-color: hsl(39, 100%, 50%);
+    color: white;
+}
+
+.header-right .btn-secondary:hover {
+    background-color: hsl(39, 90%, 40%);
 }
 
 /* Sidebar */
 .sidebar {
-    background: linear-gradient(to bottom, #4caf50, #ff9800);
+    width: 150px;
+    background-color: hsl(96, 100%, 33%);
     color: white;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding: 1rem;
+    min-height: calc(100vh - 80px); /* Adjusted to account for header height */
+    position: fixed;
+    top: 60px; /* Push below the header */
+    overflow-y: auto;
+    flex-grow: 1; /* Ensures the sidebar grows to fill available space */
+  }
+
+.sidebar-header {
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
-.sidebar h2 {
-    font-size: 1.5em;
-    margin-bottom: 20px;
-}
-
-.sidebar nav ul {
+.nav-items {
     list-style: none;
     padding: 0;
-    width: 100%;
 }
 
-.sidebar nav ul li {
-    margin: 10px 0;
+.nav-items li {
+    margin: 1rem 0;
 }
 
-.sidebar nav ul li a {
-    color: white;
+.nav-items a {
     text-decoration: none;
-    padding: 10px 15px;
+    color: hsl(60, 39%, 89%);
+    font-size: 1rem;
     display: block;
+    padding: 0.5rem 1rem;
     border-radius: 5px;
-    text-align: center;
+    transition: background-color 0.3s;
 }
 
-.sidebar nav ul li a:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+.nav-items a:hover {
+    background-color: hsl(63.98, 79.04%, 55.1%);
+    color: hsl(340, 3%, 19%);
 }
 
 /* Main Content */
 .main-content {
+    margin-left: 250px;
+    margin-top: 80px; /* Push below the header */
+    padding: 2rem;
+}
+
+/* Stats Section */
+.stats-section {
     display: flex;
-    flex-direction: column;
-    overflow: auto;
+    gap: 1rem;
+    margin-bottom: 2rem;
 }
 
-/* Header */
-header {
-    background: #f5f5f5;
-    color: #333;
-    padding: 20px;
-    border-bottom: 1px solid #ddd;
-    text-align: center;
-}
-
-header h1 {
-    margin: 0;
-    font-size: 2em;
-}
-
-header p {
-    margin: 5px 0 0;
-}
-
-/* Summary Section */
-.summary {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    padding: 20px;
-}
-
-.card {
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
+.stat-card {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 5px;
+    flex: 1;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.card h3 {
-    margin: 0;
-    font-size: 1.2em;
-    color: #4caf50;
+.stat-card h3 {
+    margin-bottom: 0.5rem;
+    color: hsl(96, 100%, 33%);
+}
+
+.stat-card p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: hsl(340, 3%, 19%);
 }
 
 /* Charts Section */
-.charts {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    padding: 20px;
+.charts-section {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
 }
 
-.chart {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
+.chart-card {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 5px;
+    flex: 1;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.chart-placeholder {
-    background: #f0f0f0;
-    height: 200px;
-    line-height: 200px;
-    color: #bbb;
+.chart-card h3 {
+    margin-bottom: 1rem;
+    color: hsl(96, 100%, 33%);
 }
 
-/* Data Tools Section */
-.data-tools h2 {
-    margin-top: 0;
-    padding: 20px;
+/* Table Section */
+.table-section {
+    margin-top: 2rem;
 }
 
-.data-tools ul {
-    list-style: disc inside;
-    margin: 0;
-    padding-left: 20px;
+.table-section h3 {
+    margin-bottom: 1rem;
+    color: hsl(96, 100%, 33%);
 }
 
-/* Footer */
-footer {
-    background-color: #333;
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.user-table thead {
+    background-color: hsl(96, 100%, 33%);
     color: white;
-    text-align: center;
-    padding: 10px;
-    grid-column: span 2;
+}
+
+.user-table th,
+.user-table td {
+    padding: 0.75rem;
+    border: 1px solid hsl(96, 50%, 60%);
+    text-align: left;
+}
+
+.user-table tbody tr:nth-child(even) {
+    background-color: hsl(60, 39%, 89%);
+}
+
+.user-table tbody tr:hover {
+    background-color: hsl(96, 100%, 33%);
+    color: white;
+}
+
+.user-table .btn-primary {
+    background-color: hsl(96, 100%, 50%);
+    color: white;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.user-table .btn-secondary {
+    background-color: hsl(39, 100%, 50%);
+    color: white;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.user-table .btn-primary:hover {
+    background-color: hsl(96, 90%, 40%);
+}
+
+.user-table .btn-secondary:hover {
+    background-color: hsl(39, 90%, 40%);
 }
