@@ -39,9 +39,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($row['UserType'] === 'Admin') {
             header("Location: adminpanel.html");
         } elseif ($row['UserType'] === 'Farmer') {
-            header("Location: farmerdashboard.html");
+            header("Location: homepage.html");
+        } elseif ($row['UserType'] === 'Officer') {
+            header("Location: gvtdash.html");
         } else {
-            header("Location: userdashboard.html");
+            header("Location: homepage.html");
         }
         exit;
     } else {

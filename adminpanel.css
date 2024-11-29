@@ -75,7 +75,7 @@ body {
     top: 60px; /* Push below the header */
     overflow-y: auto;
     flex-grow: 1; /* Ensures the sidebar grows to fill available space */
-  }
+}
 
 .sidebar-header {
     text-align: center;
@@ -111,6 +111,23 @@ body {
     margin-left: 250px;
     margin-top: 80px; /* Push below the header */
     padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 120px;
+    }
+
+    .stats-section {
+        flex-direction: column;
+    }
+
+    .charts-section {
+        flex-direction: column;
+    }
 }
 
 /* Stats Section */
@@ -145,13 +162,14 @@ body {
     display: flex;
     gap: 2rem;
     margin-bottom: 2rem;
+    flex-wrap: wrap; /* Allows cards to wrap on smaller screens */
 }
 
 .chart-card {
     background-color: white;
     padding: 1.5rem;
     border-radius: 5px;
-    flex: 1;
+    flex: 1 1 45%; /* Ensures charts grow but don't overflow */
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -159,6 +177,12 @@ body {
 .chart-card h3 {
     margin-bottom: 1rem;
     color: hsl(96, 100%, 33%);
+}
+
+@media (max-width: 768px) {
+    .chart-card {
+        flex: 1 1 100%;
+    }
 }
 
 /* Table Section */
@@ -179,6 +203,7 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     overflow: hidden;
+    border-spacing: 0;
 }
 
 .user-table thead {
@@ -202,28 +227,35 @@ body {
     color: white;
 }
 
-.user-table .btn-primary {
-    background-color: hsl(96, 100%, 50%);
-    color: white;
+.user-table .btn-primary, .user-table .btn-secondary {
     padding: 0.5rem;
     border: none;
     border-radius: 3px;
     cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.user-table .btn-primary {
+    background-color: hsl(96, 100%, 50%);
+    color: white;
 }
 
 .user-table .btn-secondary {
     background-color: hsl(39, 100%, 50%);
     color: white;
-    padding: 0.5rem;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
 }
 
-.user-table .btn-primary:hover {
+.user-table .btn-primary:hover, .user-table .btn-primary:focus {
     background-color: hsl(96, 90%, 40%);
 }
 
-.user-table .btn-secondary:hover {
+.user-table .btn-secondary:hover, .user-table .btn-secondary:focus {
     background-color: hsl(39, 90%, 40%);
 }
+
+/* Button Focus States */
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(96, 176, 82, 0.5);
+}
+

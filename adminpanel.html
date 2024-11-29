@@ -74,117 +74,112 @@
               <th>Name</th>
               <th>Email</th>
               <th>Role</th>
-              <th>Status</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>John Doe</td>
-              <td>john.doe@example.com</td>
-              <td>Admin</td>
-              <td>Active</td>
-              <td>
-                <button class="btn-primary">Edit</button>
-                <button class="btn-secondary">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Jane Smith</td>
-              <td>jane.smith@example.com</td>
-              <td>User</td>
-              <td>Inactive</td>
-              <td>
-                <button class="btn-primary">Edit</button>
-                <button class="btn-secondary">Delete</button>
-              </td>
-            </tr>
+            <?php
+            // Include the PHP file that fetches users
+            include('admin.php');
+            
+            if (!empty($users)) {
+                foreach ($users as $user) {
+                    echo "<tr>";
+                    echo "<td>" . $user['User_ID'] . "</td>";
+                    echo "<td>" . $user['Username'] . "</td>";
+                    echo "<td>" . $user['Email'] . "</td>";
+                    echo "<td>" . $user['UserType'] . "</td>";
+                    echo "<td><button class='btn-primary'>Edit</button><button class='btn-secondary'>Delete</button></td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='5'>No users found</td></tr>";
+            }
+            ?>
           </tbody>
-                </table>
-            </section>
-        </div>
+        </table>
+      </section>
     </div>
+  </div>
 
-    <script>
-        // Dummy data for farmer sales
-        const salesData = {
-            labels: ['Dhaka', 'Chittagong', 'Comilla', 'Khulna', 'Sylhet', 'Barishal'],
-            datasets: [
-                {
-                    label: 'Total Sales (in BDT)',
-                    data: [4500, 3200, 5000, 7000, 6000, 4000],
-                    backgroundColor: 'rgba(96, 176, 82, 0.6)',
-                    borderColor: 'rgba(96, 176, 82, 1)',
-                    borderWidth: 1,
-                },
-            ],
-        };
+  <script>
+    // Dummy data for farmer sales
+    const salesData = {
+        labels: ['Dhaka', 'Chittagong', 'Comilla', 'Khulna', 'Sylhet', 'Barishal'],
+        datasets: [
+            {
+                label: 'Total Sales (in BDT)',
+                data: [4500, 3200, 5000, 7000, 6000, 4000],
+                backgroundColor: 'rgba(96, 176, 82, 0.6)',
+                borderColor: 'rgba(96, 176, 82, 1)',
+                borderWidth: 1,
+            },
+        ],
+    };
 
-        const salesConfig = {
-            type: 'bar',
-            data: salesData,
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    title: {
-                        display: true,
-                        text: 'Total Sales by Farmers (Area Wise)',
-                    },
+    const salesConfig = {
+        type: 'bar',
+        data: salesData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                    },
+                title: {
+                    display: true,
+                    text: 'Total Sales by Farmers (Area Wise)',
                 },
             },
-        };
-
-        const salesChartCtx = document.getElementById('salesChart').getContext('2d');
-        new Chart(salesChartCtx, salesConfig);
-
-        // Dummy data for user stats
-        const userStatsData = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-            datasets: [
-                {
-                    label: 'Active Users',
-                    data: [50, 75, 60, 90, 120, 150, 200, 180, 160, 220, 240, 300],
-                    backgroundColor: 'rgba(255, 159, 64, 0.6)',
-                    borderColor: 'rgba(255, 159, 64, 1)',
-                    borderWidth: 1,
-                },
-            ],
-        };
-
-        const userStatsConfig = {
-            type: 'line',
-            data: userStatsData,
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    title: {
-                        display: true,
-                        text: 'Monthly Active Users',
-                    },
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                    },
+            scales: {
+                y: {
+                    beginAtZero: true,
                 },
             },
-        };
+        },
+    };
 
-        const userStatsChartCtx = document.getElementById('userStatsChart').getContext('2d');
-        new Chart(userStatsChartCtx, userStatsConfig);
-    </script>
+    const salesChartCtx = document.getElementById('salesChart').getContext('2d');
+    new Chart(salesChartCtx, salesConfig);
+
+    // Dummy data for user stats
+    const userStatsData = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        datasets: [
+            {
+                label: 'Active Users',
+                data: [50, 75, 60, 90, 120, 150, 200, 180, 160, 220, 240, 300],
+                backgroundColor: 'rgba(255, 159, 64, 0.6)',
+                borderColor: 'rgba(255, 159, 64, 1)',
+                borderWidth: 1,
+            },
+        ],
+    };
+
+    const userStatsConfig = {
+        type: 'line',
+        data: userStatsData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Monthly Active Users',
+                },
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                },
+            },
+        },
+    };
+
+    const userStatsChartCtx = document.getElementById('userStatsChart').getContext('2d');
+    new Chart(userStatsChartCtx, userStatsConfig);
+  </script>
 </body>
 </html>
