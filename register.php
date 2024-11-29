@@ -1,32 +1,56 @@
 <?php
+session_start();
+
 // Database connection
 $servername = "localhost";
-$username = "root"; // Replace with your DB username
-$password = "";     // Replace with your DB password
+$username = "root";
+$password = "";
 $dbname = "agribridge";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Handling form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $full_name = $conn->real_escape_string($_POST['full_name']);
-    $email = $conn->real_escape_string($_POST['email']);
-    $user_id = $conn->real_escape_string($_POST['user_id']);
-    $address = $conn->real_escape_string($_POST['address']);
-    $password = password_hash($conn->real_escape_string($_POST['password']), PASSWORD_BCRYPT);
+    // Get input data and sanitize it
+    $username = mysqli_real_escape_string($conn, trim($_POST['username']));
+    $phone = mysqli_real_escape_string($conn, trim($_POST['phone']));
+    $email = mysqli_real_escape_string($conn, trim($_POST['email']));
+    $address = mysqli_real_escape_string($conn, trim($_POST['address']));
+    $gender = mysqli_real_escape_string($conn, trim($_POST['gender']));
+    $user_type = mysqli_real_escape_string($conn, trim($_POST['user_type']));
 
-    // Insert into database
-    $sql = "INSERT INTO users (full_name, email, user_id, address, password) VALUES ('$full_name', '$email', '$user_id', '$address', '$password')";
+    // Debugging input
+    echo "Debug: Entered Username = $username<br>";
+    echo "Debug: Entered Phone = $phone<br>";
+    echo "Debug: Entered Email = $email<br>";
+    echo "Debug: Entered Address = $address<br>";
+    echo "Debug: Entered Gender = $gender<br>";
+    echo "Debug: Entered User Type = $user_type<br>";
 
-    if ($conn->query($sql) === TRUE) {
-        echo "Registration successful!";
+    // Check if the username already exists
+    $sql_check = "SELECT * FROM users WHERE Username = '$username'";
+    $result_check = $conn->query($sql_check);
+
+    if ($result_check && $result_check->num_rows > 0) {
+        echo "Username already taken. Please choose another one.";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        // Insert the new user into the database
+        $sql = "INSERT INTO users (Username, PhoneNumber, Email, Address, Gender, UserType) 
+                VALUES ('$username', '$phone', '$email', '$address', '$gender', '$user_type')";
+
+        if ($conn->query($sql) === TRUE) {
+            echo "Registration successful! You can <a href='login.html'>login</a> now.";
+            // Optionally, you can auto-login the user after registration
+            $_SESSION['Username'] = $username;
+            $_SESSION['UserType'] = $user_type;
+            header("Location: login.html"); // Redirect to login page
+            exit;
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
     }
 }
 

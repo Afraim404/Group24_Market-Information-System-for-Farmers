@@ -5,7 +5,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-image: url('logimg.jpg');
+    background-image: url('logimg.jpg'); /* Replace with your background image for registration */
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -39,7 +39,8 @@ body {
     border-radius: 10px;
 }
 
-.input-box input {
+.input-box input,
+.input-box select {
     width: 100%;
     height: 100%;
     background: transparent;
@@ -49,14 +50,20 @@ body {
     border-radius: 10px;
     font-size: 16px;
     color: #fff;
-    padding: 0 2px;
+    padding: 0 10px;
     line-height: 50px;
     font-family: 'Poppins', sans-serif;
 }
 
 .input-box input::placeholder {
     color: #fff;
-    font-family: 'Poppins', sans-serif;
+}
+
+.input-box select {
+    cursor: pointer;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(0, 0, 0, 0.2);
 }
 
 .input-box i {
@@ -100,27 +107,6 @@ body {
 }
 
 .login-link p a:hover {
-    text-decoration: underline;
-}
-
-.wrapper .remember-forget {
-    display: flex;
-    justify-content: space-between;
-    font-size: 14.5px;
-    margin: -15px 0 15px;
-}
-
-.remember-forget label input {
-    accent-color: #fff;
-    margin-right: 3px;
-}
-
-.remember-forget a {
-    color: #fff;
-    text-decoration: none;
-}
-
-.remember-forget a:hover {
     text-decoration: underline;
 }
 

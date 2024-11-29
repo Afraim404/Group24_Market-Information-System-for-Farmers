@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 // Database connection
 $servername = "localhost";
 $username = "root";
@@ -7,48 +9,43 @@ $dbname = "agribridge";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Enable error reporting
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Start session
-session_start();
-
-// Handle login form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $user_id = $conn->real_escape_string($_POST['user_id']);
-    $password = $conn->real_escape_string($_POST['password']);
+    $username = mysqli_real_escape_string($conn, trim($_POST['username']));
+    $user_type = mysqli_real_escape_string($conn, trim($_POST['user_type']));
 
-    // Debug input values
-    echo "User ID: $user_id<br>";
-    echo "Password: $password<br>";
+    // Debugging input
+    echo "Debug: Entered Username = $username<br>";
+    echo "Debug: Entered User Type = $user_type<br>";
 
-    // Query user
-    $sql = "SELECT * FROM users WHERE user_id='$user_id'";
+    // Query to check username and user type
+    $sql = "SELECT * FROM users WHERE Username = '$username' AND UserType = '$user_type'";
+    echo "Debug: SQL Query = $sql<br>";
+
     $result = $conn->query($sql);
 
-    if ($result->num_rows > 0) {
-        $user = $result->fetch_assoc();
-        echo "User found: " . $user['full_name'] . "<br>";
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        echo "Debug: User found!<br>";
 
-        // Check password
-        if (password_verify($password, $user['password'])) {
-            $_SESSION['user_id'] = $user['user_id'];
-            $_SESSION['full_name'] = $user['full_name'];
+        $_SESSION['User_ID'] = $row['User_ID'];
+        $_SESSION['Username'] = $row['Username'];
+        $_SESSION['UserType'] = $row['UserType'];
 
-            echo "Login successful! Redirecting...";
+        // Redirect based on user type
+        if ($row['UserType'] === 'Admin') {
             header("Location: adminpanel.html");
-            exit();
+        } elseif ($row['UserType'] === 'Farmer') {
+            header("Location: farmerdashboard.html");
         } else {
-            echo "Invalid password!";
+            header("Location: userdashboard.html");
         }
+        exit;
     } else {
-        echo "User ID does not exist!";
+        echo "Invalid Username or User Type<br>";
     }
 }
 
