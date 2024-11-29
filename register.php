@@ -1,47 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+// Database connection
+$servername = "localhost";
+$username = "root"; // Replace with your DB username
+$password = "";     // Replace with your DB password
+$dbname = "agribridge";
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register Form</title>
-    <link rel="stylesheet" href="register.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-</head>
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-<body>
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-    <div class="wrapper">
-        <form action="">
-            <h1>Register</h1>
-            <div class="input-box">
-                <input type="text" placeholder="Full Name" required>
-                <i class='bx bxs-user'></i>
-            </div>
-            <div class="input-box">
-                <input type="email" placeholder="Email" required>
-                <i class='bx bxs-envelope'></i>
-            </div>
-            <div class="input-box">
-                <input type="text" placeholder="User ID" required>
-                <i class='bx bxs-id-card'></i>
-            </div>
-            <div class="input-box">
-                <input type="password" placeholder="Password" required>
-                <i class='bx bxs-lock-alt'></i>
-            </div>
-            <div class="input-box">
-                <input type="password" placeholder="Confirm Password" required>
-                <i class='bx bxs-lock-alt'></i>
-            </div>
-            <button type="submit" class="btn">Register</button>
-            <div class="login-link">
-                <p>Already have an account? <a href="login.html">Login</a></p>
-            </div>
-        </form>
-    </div>
+// Handling form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $full_name = $conn->real_escape_string($_POST['full_name']);
+    $email = $conn->real_escape_string($_POST['email']);
+    $user_id = $conn->real_escape_string($_POST['user_id']);
+    $address = $conn->real_escape_string($_POST['address']);
+    $password = password_hash($conn->real_escape_string($_POST['password']), PASSWORD_BCRYPT);
 
-</body>
+    // Insert into database
+    $sql = "INSERT INTO users (full_name, email, user_id, address, password) VALUES ('$full_name', '$email', '$user_id', '$address', '$password')";
 
-</html>
+    if ($conn->query($sql) === TRUE) {
+        echo "Registration successful!";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+$conn->close();
+?>

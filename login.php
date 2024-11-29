@@ -1,43 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+// Database connection
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "agribridge";
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Form in HTML and CSS</title>
-    <link rel="stylesheet" href="login.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-</head>
-<body>
+// Enable error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-    <div class="wrapper">
-        <form action="">
-            <h1>Login</h1>
-            <div class="input-box">
-                <input type="text" placeholder="User ID"
-                required>
-                <i class='bx bxs-user'></i>
-            </div>
-            <div class="input-box">
-                <input type="password" placeholder="Password"
-                required>
-                <i class='bx bxs-lock-alt' ></i>
-            </div>
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-            <div class="remember-forget">
-                <label><input type="checkbox"> Remember me </label>
-                <a href="#">Forgot password?</a>
-            </div>
+// Start session
+session_start();
 
-            <button type="submit" class="btn">Login</button>
+// Handle login form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $user_id = $conn->real_escape_string($_POST['user_id']);
+    $password = $conn->real_escape_string($_POST['password']);
 
-            <div class="register-link">
-                <p>Don't have an account? <a href="register.html">Register</a></p>
-            </div>
-        </form>
-    </div>
-    
-</body>
-</html>
+    // Debug input values
+    echo "User ID: $user_id<br>";
+    echo "Password: $password<br>";
+
+    // Query user
+    $sql = "SELECT * FROM users WHERE user_id='$user_id'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        $user = $result->fetch_assoc();
+        echo "User found: " . $user['full_name'] . "<br>";
+
+        // Check password
+        if (password_verify($password, $user['password'])) {
+            $_SESSION['user_id'] = $user['user_id'];
+            $_SESSION['full_name'] = $user['full_name'];
+
+            echo "Login successful! Redirecting...";
+            header("Location: adminpanel.html");
+            exit();
+        } else {
+            echo "Invalid password!";
+        }
+    } else {
+        echo "User ID does not exist!";
+    }
+}
+
+$conn->close();
+?>
