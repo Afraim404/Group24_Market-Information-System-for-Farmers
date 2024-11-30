@@ -43,14 +43,8 @@
                         <th>Availability</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>101</td>
-                        <td>Senior Agriculture Officer</td>
-                        <td>Agriculture</td>
-                        <td>Supervising crop advisory services</td>
-                        <td>Available</td>
-                    </tr>
+                <tbody id="officer-table-body">
+                    <!-- Data will be inserted dynamically here -->
                 </tbody>
             </table>
         </section>
@@ -195,13 +189,28 @@
     </footer>
 
     <script>
+        // Fetch officer data from the PHP backend
+        fetch('gvtdash.php')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('officer-table-body');
+                tableBody.innerHTML = ""; // Clear existing rows
 
-        document.querySelectorAll('.approve-button').forEach(button => {
-            button.addEventListener('click', () => {
-                button.textContent = 'Approved';
-                button.disabled = true;
+                data.forEach(officer => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${officer.Officer_ID}</td>
+                        <td>${officer.PositionTitle}</td>
+                        <td>${officer.Department}</td>
+                        <td>${officer.Responsibilities}</td>
+                        <td>${officer.OfficeAvailability == 1 ? "Available" : "Not Available"}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching officer data:', error);
             });
-        });
     </script>
 </body>
 </html>

@@ -35,36 +35,39 @@
     </aside>
 
     <div class="main-content">
+      <!-- Stats Section -->
       <section class="stats-section">
         <div class="stat-card green">
           <h3>Total Users</h3>
-          <p>256</p>
+          <p>2,500</p>
         </div>
         <div class="stat-card orange">
-          <h3>Total Orders</h3>
-          <p>4,100</p>
+          <h3>Active Users (Last 30 Days)</h3>
+          <p>1,800</p>
         </div>
         <div class="stat-card light-green">
-          <h3>Daily Sales</h3>
-          <p>42%</p>
+          <h3>Total Orders</h3>
+          <p>4,500</p>
         </div>
         <div class="stat-card dark-green">
-          <h3>Expenses</h3>
-          <p>55%</p>
-        </div>
+          <h3>Total Revenue</h3>
+          <p>BDT 1,500,000</p>
+        </div>        
       </section>
 
+      <!-- Charts Section -->
       <section class="charts-section">
         <div class="chart-card">
           <h3>Sales Report</h3>
-          <canvas id="salesChart"></canvas>
+          <canvas id="salesChart" width="400" height="300"></canvas>
         </div>
         <div class="chart-card">
           <h3>User Stats</h3>
-          <canvas id="userStatsChart"></canvas>
+          <canvas id="userStatsChart" width="400" height="300"></canvas>
         </div>
       </section>
 
+      <!-- Table Section -->
       <section class="table-section">
         <h3>Registered Users</h3>
         <table class="user-table">
@@ -77,109 +80,111 @@
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
-            <?php
-            // Include the PHP file that fetches users
-            include('admin.php');
-            
-            if (!empty($users)) {
-                foreach ($users as $user) {
-                    echo "<tr>";
-                    echo "<td>" . $user['User_ID'] . "</td>";
-                    echo "<td>" . $user['Username'] . "</td>";
-                    echo "<td>" . $user['Email'] . "</td>";
-                    echo "<td>" . $user['UserType'] . "</td>";
-                    echo "<td><button class='btn-primary'>Edit</button><button class='btn-secondary'>Delete</button></td>";
-                    echo "</tr>";
-                }
-            } else {
-                echo "<tr><td colspan='5'>No users found</td></tr>";
-            }
-            ?>
+          <tbody id="user-table-body">
+            <!-- Rows will be dynamically added here -->
           </tbody>
         </table>
       </section>
     </div>
   </div>
 
+  <!-- JavaScript -->
   <script>
-    // Dummy data for farmer sales
+    // Fetch data for the user table
+    fetch('adminpanel.php')
+      .then((response) => response.json())
+      .then((data) => {
+        const tableBody = document.getElementById('user-table-body');
+
+        if (data.length > 0) {
+          data.forEach((user) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${user.User_ID}</td>
+              <td>${user.Username}</td>
+              <td>${user.Email}</td>
+              <td>${user.UserType}</td>
+              <td>
+                <button class="btn-primary" onclick="editUser(${user.User_ID})">Edit</button>
+                <button class="btn-secondary" onclick="deleteUser(${user.User_ID})">Delete</button>
+              </td>
+            `;
+            tableBody.appendChild(row);
+          });
+        } else {
+          tableBody.innerHTML = '<tr><td colspan="5">No users found</td></tr>';
+        }
+      })
+      .catch((error) => console.error('Error fetching user data:', error));
+
+    // Dummy data for sales chart
     const salesData = {
-        labels: ['Dhaka', 'Chittagong', 'Comilla', 'Khulna', 'Sylhet', 'Barishal'],
-        datasets: [
-            {
-                label: 'Total Sales (in BDT)',
-                data: [4500, 3200, 5000, 7000, 6000, 4000],
-                backgroundColor: 'rgba(96, 176, 82, 0.6)',
-                borderColor: 'rgba(96, 176, 82, 1)',
-                borderWidth: 1,
-            },
-        ],
+      labels: ['Dhaka', 'Chittagong', 'Comilla', 'Khulna', 'Sylhet', 'Barishal'],
+      datasets: [{
+        label: 'Total Sales (in BDT)',
+        data: [4500, 3200, 5000, 7000, 6000, 4000],
+        backgroundColor: 'rgba(96, 176, 82, 0.6)',
+        borderColor: 'rgba(96, 176, 82, 1)',
+        borderWidth: 1,
+      }],
     };
 
     const salesConfig = {
-        type: 'bar',
-        data: salesData,
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'Total Sales by Farmers (Area Wise)',
-                },
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                },
-            },
+      type: 'bar',
+      data: salesData,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'top' },
+          title: { display: true, text: 'Total Sales by Farmers (Area Wise)' },
         },
+        scales: {
+          y: { beginAtZero: true },
+        },
+      },
     };
 
     const salesChartCtx = document.getElementById('salesChart').getContext('2d');
     new Chart(salesChartCtx, salesConfig);
 
-    // Dummy data for user stats
+    // Dummy data for user stats chart
     const userStatsData = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        datasets: [
-            {
-                label: 'Active Users',
-                data: [50, 75, 60, 90, 120, 150, 200, 180, 160, 220, 240, 300],
-                backgroundColor: 'rgba(255, 159, 64, 0.6)',
-                borderColor: 'rgba(255, 159, 64, 1)',
-                borderWidth: 1,
-            },
-        ],
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      datasets: [{
+        label: 'Active Users',
+        data: [50, 75, 60, 90, 120, 150, 200, 180, 160, 220, 240, 300],
+        backgroundColor: 'rgba(255, 159, 64, 0.6)',
+        borderColor: 'rgba(255, 159, 64, 1)',
+        borderWidth: 1,
+      }],
     };
 
     const userStatsConfig = {
-        type: 'line',
-        data: userStatsData,
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'Monthly Active Users',
-                },
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                },
-            },
+      type: 'line',
+      data: userStatsData,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'top' },
+          title: { display: true, text: 'Monthly Active Users' },
         },
+        scales: {
+          y: { beginAtZero: true },
+        },
+      },
     };
 
     const userStatsChartCtx = document.getElementById('userStatsChart').getContext('2d');
     new Chart(userStatsChartCtx, userStatsConfig);
+
+    // Edit and Delete Actions
+    function editUser(userId) {
+      alert(`Edit user with ID: ${userId}`);
+    }
+
+    function deleteUser(userId) {
+      alert(`Delete user with ID: ${userId}`);
+    }
   </script>
 </body>
 </html>
