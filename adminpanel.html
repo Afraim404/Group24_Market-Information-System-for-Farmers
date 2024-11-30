@@ -26,8 +26,8 @@
         <p>Admin</p>
       </div>
       <ul class="nav-items">
-        <li><a href="#">Homepage</a></li>
-        <li><a href="#">CRM</a></li>
+        <li><a href="homepage.html">Homepage</a></li>
+        <li><a href="gvtdash.html">Government</a></li>
         <li><a href="#">Charts</a></li>
         <li><a href="#">Tables</a></li>
         <li><a href="#">Settings</a></li>
@@ -55,35 +55,38 @@
         </div>        
       </section>
 
-      <!-- Charts Section -->
-      <section class="charts-section">
-        <div class="chart-card">
-          <h3>Sales Report</h3>
-          <canvas id="salesChart" width="400" height="300"></canvas>
+      <!-- Main Content Section with Charts and Table -->
+      <section class="charts-and-table">
+        <!-- Charts Section -->
+        <div class="charts-section">
+          <div class="chart-card">
+            <h3>Sales Report</h3>
+            <canvas id="salesChart" width="200" height="150"></canvas>
+          </div>
+          <div class="chart-card">
+            <h3>User Type Distribution</h3>
+            <canvas id="userTypeChart" width="200" height="150"></canvas>
+          </div>
         </div>
-        <div class="chart-card">
-          <h3>User Type Distribution</h3>
-          <canvas id="userTypeChart" width="400" height="300"></canvas>
-        </div>
-      </section>
 
-      <!-- Table Section -->
-      <section class="table-section">
-        <h3>Registered Users</h3>
-        <table class="user-table">
-          <thead>
-            <tr>
-              <th>User ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Role</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="user-table-body">
-            <!-- Rows will be dynamically added here -->
-          </tbody>
-        </table>
+        <!-- Table Section -->
+        <section class="table-section">
+          <h3>Registered Users</h3>
+          <table class="user-table">
+            <thead>
+              <tr>
+                <th>User ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="user-table-body">
+              <!-- Rows will be dynamically added here -->
+            </tbody>
+          </table>
+        </section>
       </section>
     </div>
   </div>

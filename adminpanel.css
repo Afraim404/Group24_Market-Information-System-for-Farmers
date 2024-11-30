@@ -116,20 +116,6 @@ body {
     gap: 2rem;
 }
 
-@media (max-width: 768px) {
-    .main-content {
-        margin-left: 120px;
-    }
-
-    .stats-section {
-        flex-direction: column;
-    }
-
-    .charts-section {
-        flex-direction: column;
-    }
-}
-
 /* Stats Section */
 .stats-section {
     display: flex;
@@ -163,13 +149,14 @@ body {
     gap: 2rem;
     margin-bottom: 2rem;
     flex-wrap: wrap; /* Allows cards to wrap on smaller screens */
+    justify-content: space-between;
 }
 
 .chart-card {
     background-color: white;
     padding: 1.5rem;
     border-radius: 5px;
-    flex: 1 1 45%; /* Ensures charts grow but don't overflow */
+    flex: 1 1 45%; /* Adjust to make the charts smaller */
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -188,6 +175,9 @@ body {
 /* Table Section */
 .table-section {
     margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
 }
 
 .table-section h3 {
@@ -204,6 +194,7 @@ body {
     border-radius: 5px;
     overflow: hidden;
     border-spacing: 0;
+    flex: 1 1 48%; /* Ensures table occupies part of the width */
 }
 
 .user-table thead {
@@ -258,4 +249,3 @@ button:focus {
     outline: none;
     box-shadow: 0 0 0 3px rgba(96, 176, 82, 0.5);
 }
-
