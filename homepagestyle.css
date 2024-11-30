@@ -9,11 +9,14 @@
 body {
     background-color: hsl(60, 39%, 89%);
     color: hsl(340, 3%, 19%);
+    font-size: 16px;
+    line-height: 1.6;
 }
 
+/* Header */
 header {
     background-color: hsl(60, 39%, 89%);
-    padding: 0.75rem;
+    padding: 1rem 2rem;
     border-bottom: 1px solid hsl(340, 3%, 19%);
 }
 
@@ -29,7 +32,7 @@ nav {
 }
 
 .databaseicon {
-    margin-right: 1rem; 
+    margin-right: 1rem;
 }
 
 .nav-logo {
@@ -40,27 +43,28 @@ nav {
 .nav-items {
     list-style: none;
     display: flex;
-    gap: 0.5rem;
+    gap: 1rem;
 }
 
 .nav-items a {
     text-decoration: none;
     color: hsl(340, 3%, 19%);
-    padding: 0.5rem 1rem;
-    transition: color 0.3s;
+    padding: 0.75rem 1rem;
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .nav-items a:hover {
     color: hsl(96, 100%, 33%);
+    transform: scale(1.05);
 }
 
 .btn-primary, .btn-secondary {
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1.25rem;
     border-radius: 5px;
     text-align: center;
     text-decoration: none;
     color: hsl(340, 3%, 19%);
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease;
 }
 
 .btn-primary {
@@ -68,39 +72,40 @@ nav {
 }
 
 .btn-secondary {
-    background-color: hsl(63.98, 79.04%, 55.1%); 
+    background-color: hsl(63.98, 79.04%, 55.1%);
     color: hsl(340, 3%, 19%);
 }
 
+/* Hero Section */
 .hero-section {
     background: hsl(60, 39%, 89%);
     color: hsl(340, 3%, 19%);
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     text-align: center;
     padding: 4rem 2rem;
-    height: 60vh;
+    height: 70vh;
     border-bottom: 2px solid hsl(60, 39%, 89%);
 }
 
 .hero-content {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
 }
 
 .hero-content h1 {
-    font-size: 65px;
-    margin-bottom: 0rem;
-    white-space: nowrap;
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
 }
 
 .hero-content p {
-    font-size: 18px;
-    margin-top: 1rem;
+    font-size: 1.1rem;
+    margin-top: 1.5rem;
     margin-bottom: 2rem;
     line-height: 1.6;
-    line-height: 1.4;
 }
 
 .highlight_h1 {
@@ -109,9 +114,9 @@ nav {
 
 .cta-button {
     display: inline-block;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    font-weight: bold;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    font-weight: 600;
     color: hsl(0, 0%, 96%);
     background-color: hsl(340, 3%, 19%);
     border-radius: 5px;
@@ -124,89 +129,114 @@ nav {
     transform: scale(1.05);
 }
 
+/* Feature Section */
 .feature-section {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 1.5rem;
-    padding: 2rem;
+    gap: 2rem;
+    padding: 3rem 2rem;
+    background-color: hsl(0, 0%, 96%);
 }
 
 .box {
     background-color: hsl(340, 3%, 19%);
     color: hsl(0, 0%, 96%);
-    width: 260px;
-    padding: 1.5rem;
-    border-radius: 8px;
+    width: 300px;
+    padding: 1.75rem;
+    border-radius: 10px;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
 }
 
 .box:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .box h3 {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
 }
 
 .box p {
-    font-size: 0.9rem;
-    line-height: 1.4;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
 }
 
 .weather-time-widget {
     position: fixed;
-    top: 20%;
-    right: 20px;  
-    background-color: hsl(96, 100%, 33%);  
+    top: 10%;
+    right: 20px;
+    background-color: hsl(96, 100%, 33%);
     color: white;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.25);  
+    border-radius: 12px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.25);
     text-align: center;
-    font-size: 18px;
-    width: 220px;
-    z-index: 1000;  
+    font-size: 1rem;
+    width: 250px;
+    z-index: 1000;
     transition: background-color 0.3s, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .weather-time-widget:hover {
-    background-color: hsl(76, 100%, 29%);  
-    transform: scale(1.1); 
-    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.35);  
+    background-color: hsl(76, 100%, 29%);
+    transform: scale(1.1);
+    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.35);
 }
 
 #time-display, #weather-display {
     margin: 5px 0;
     font-weight: bold;
-    font-size: 22px;  
+    font-size: 1.2rem;
 }
 
 #time-display {
-    font-size: 24px;  
-    text-transform: uppercase;  
+    font-size: 1.4rem;
+    text-transform: uppercase;
 }
 
 #weather-display {
-    font-size: 22px;  
+    font-size: 1.3rem;
 }
 
 .weather-icon {
-    width: 50px;  
-    height: 50px;  
-    margin-bottom: 10px;  
+    width: 60px;
+    height: 60px;
+    margin-bottom: 12px;
 }
 
+/* Footer */
 footer {
     background-color: hsl(340, 3%, 19%);
     color: hsl(0, 0%, 71%);
     text-align: center;
     padding: 1rem;
-    margin-top: 2rem;
-    font-size: 0.9rem;
+    margin-top: 3rem;
+    font-size: 1rem;
     border-top: 2px solid hsl(60, 39%, 89%);
+}
+
+/* About Section */
+.about-system-section {
+    padding: 3rem 2rem;
+    background-color: hsl(0, 0%, 96%);
+    text-align: center;
+}
+
+.about-system-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+.about-system-section p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 900px;
+    margin: 0 auto;
 }
