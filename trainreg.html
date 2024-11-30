@@ -31,28 +31,27 @@
         <section class="training-section">
             <h1>Training Registration</h1>
             <p>Register for various training programs to enhance your farming skills and knowledge. Fill in the details below to sign up.</p>
-
-            <form class="training-form">
+            <form class="training-form" action="trainreg.php" method="POST">
                 <div class="form-group">
                     <label for="farmer-name">Farmer's Name</label>
                     <input type="text" id="farmer-name" name="farmer-name" required>
                 </div>
-
+            
                 <div class="form-group">
                     <label for="farmer-id">Farmer ID</label>
                     <input type="text" id="farmer-id" name="farmer-id" required>
                 </div>
-
+            
                 <div class="form-group">
                     <label for="farm-location">Farm Location</label>
                     <input type="text" id="farm-location" name="farm-location" required>
                 </div>
-
+            
                 <div class="form-group">
                     <label for="phone">Phone Number</label>
                     <input type="tel" id="phone" name="phone" required>
                 </div>
-
+            
                 <div class="form-group">
                     <label for="training-type">Select Training Program</label>
                     <select id="training-type" name="training-type" required>
@@ -63,14 +62,15 @@
                         <option value="soil-health">Soil Health and Fertility</option>
                     </select>
                 </div>
-
+            
                 <div class="form-group">
                     <label for="comments">Additional Comments</label>
                     <textarea id="comments" name="comments" rows="4" placeholder="Any specific areas of interest or questions"></textarea>
                 </div>
-
+            
                 <button type="submit" class="btn-primary">Register</button>
             </form>
+            
         </section>
     </main>
 

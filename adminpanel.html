@@ -39,7 +39,7 @@
       <section class="stats-section">
         <div class="stat-card green">
           <h3>Total Users</h3>
-          <p>2,500</p>
+          <p>Loading...</p> <!-- Placeholder for dynamic content -->
         </div>
         <div class="stat-card orange">
           <h3>Active Users (Last 30 Days)</h3>
@@ -62,8 +62,8 @@
           <canvas id="salesChart" width="400" height="300"></canvas>
         </div>
         <div class="chart-card">
-          <h3>User Stats</h3>
-          <canvas id="userStatsChart" width="400" height="300"></canvas>
+          <h3>User Type Distribution</h3>
+          <canvas id="userTypeChart" width="400" height="300"></canvas>
         </div>
       </section>
 
@@ -90,14 +90,17 @@
 
   <!-- JavaScript -->
   <script>
-    // Fetch data for the user table
+    // Fetch data for total users, user types, and registered users
     fetch('adminpanel.php')
-      .then((response) => response.json())
-      .then((data) => {
-        const tableBody = document.getElementById('user-table-body');
+      .then(response => response.json())
+      .then(data => {
+        // Update the "Total Users" stat card with the fetched data
+        document.querySelector('.stat-card.green p').textContent = data.total_users;
 
-        if (data.length > 0) {
-          data.forEach((user) => {
+        // Populate the user table with fetched users
+        const tableBody = document.getElementById('user-table-body');
+        if (data.users.length > 0) {
+          data.users.forEach((user) => {
             const row = document.createElement('tr');
             row.innerHTML = `
               <td>${user.User_ID}</td>
@@ -114,6 +117,37 @@
         } else {
           tableBody.innerHTML = '<tr><td colspan="5">No users found</td></tr>';
         }
+
+        // Prepare data for the User Type Distribution Pie chart
+        const userTypeLabels = data.user_types.map(type => type.UserType);
+        const userTypeCounts = data.user_types.map(type => type.count);
+
+        // Pie Chart for User Type Distribution
+        const userTypeData = {
+          labels: userTypeLabels,
+          datasets: [{
+            label: 'User Type Distribution',
+            data: userTypeCounts,
+            backgroundColor: ['rgba(96, 176, 82, 0.6)', 'rgba(255, 159, 64, 0.6)', 'rgba(54, 162, 235, 0.6)'], // Color palette
+            borderColor: ['rgba(96, 176, 82, 1)', 'rgba(255, 159, 64, 1)', 'rgba(54, 162, 235, 1)'],
+            borderWidth: 1,
+          }],
+        };
+
+        const userTypeConfig = {
+          type: 'pie',
+          data: userTypeData,
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { position: 'top' },
+              title: { display: true, text: 'Distribution of User Types' },
+            },
+          },
+        };
+
+        const userTypeChartCtx = document.getElementById('userTypeChart').getContext('2d');
+        new Chart(userTypeChartCtx, userTypeConfig);
       })
       .catch((error) => console.error('Error fetching user data:', error));
 
@@ -146,36 +180,6 @@
 
     const salesChartCtx = document.getElementById('salesChart').getContext('2d');
     new Chart(salesChartCtx, salesConfig);
-
-    // Dummy data for user stats chart
-    const userStatsData = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-      datasets: [{
-        label: 'Active Users',
-        data: [50, 75, 60, 90, 120, 150, 200, 180, 160, 220, 240, 300],
-        backgroundColor: 'rgba(255, 159, 64, 0.6)',
-        borderColor: 'rgba(255, 159, 64, 1)',
-        borderWidth: 1,
-      }],
-    };
-
-    const userStatsConfig = {
-      type: 'line',
-      data: userStatsData,
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { position: 'top' },
-          title: { display: true, text: 'Monthly Active Users' },
-        },
-        scales: {
-          y: { beginAtZero: true },
-        },
-      },
-    };
-
-    const userStatsChartCtx = document.getElementById('userStatsChart').getContext('2d');
-    new Chart(userStatsChartCtx, userStatsConfig);
 
     // Edit and Delete Actions
     function editUser(userId) {
