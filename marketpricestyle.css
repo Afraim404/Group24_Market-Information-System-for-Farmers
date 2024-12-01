@@ -255,3 +255,102 @@ padding: 20rem 9%;
 {
 	color: var(--Light-colour);
 }
+
+#add-new-product {
+    padding: 2rem;
+    background-color: #f9f9f9;
+}
+
+#add-new-product h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+#add-new-product form {
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#add-new-product input, #add-new-product button {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#add-new-product button {
+    background-color: #28a745;
+    color: #fff;
+    cursor: pointer;
+}
+
+#add-new-product button:hover {
+    background-color: #218838;
+}
+
+
+
+
+.price-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.price-table th, .price-table td {
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 8px;
+}
+
+.price-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+#crop-info {
+    font-size: 16px;
+}
+
+
+.search-and-add {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+#search-box {
+    width: 70%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+}
+
+.btn-add {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-add:hover {
+    background-color: #45a049;
+}
+
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
