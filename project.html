@@ -19,19 +19,16 @@
 
 <header class="header">
 	<a href="#" class="logo">Market Price</a>
+
+
+	
+
 <nav class="navbar">
-	<a href="#all-product">all-product</a>
-	<a href="#add-new-product">add-new-product</a>
+		<a href="#all-product" onclick="scrollToTable()">all-product</a>
+		<button class="btn-add" onclick="toggleAddNewProduct()">Add New Product</button>
 
 </nav>
-<div class="icons">
-	<div class="fa fa-search" id="search-btn"></div>
-</div>
 
-<form class="search-form">
-	<input type="search" id="search-box" placeholder="Search here....">
-	<label for="search-box" class="fa fa-search"></label>
-</form>
 
 </header>
 <!-- header section -->	
@@ -43,8 +40,8 @@
 	</video>
 	<div class="content">
 		<h3>Market Information</h3>
-		<p>Combination of technology, <span>information</span> and facilities for farmers</p>
-		<a href="#" class="btn">Products</a>
+		<p>Access real-time market prices, <span>connect</span> with buyers, and grow your farm smarter</p>
+	
 	</div>
 
 
@@ -54,9 +51,188 @@
 <!-- all product section -->
 <section class="all-product" id="all-product">
 	<h1 class="heading"> all <span>products</span> </h1>
-
-
 </section>
+
+<section id="add-new-product" style="display: none; margin-top: 2rem;">
+    <h2>Add New Product</h2>
+    <form id="new-product-form">
+        <label for="product-name">Product Name:</label>
+        <input type="text" id="product-name" placeholder="Enter product name" required><br><br>
+
+        <label for="product-price">Price:</label>
+        <input type="number" id="product-price" placeholder="Enter product price" required><br><br>
+
+        <label for="product-unit">Unit:</label>
+        <input type="text" id="product-unit" placeholder="e.g., 1 KG, 1 PCS" required><br><br>
+
+        <label for="product-image">Image URL:</label>
+        <input type="url" id="product-image" placeholder="Enter image URL"><br><br>
+
+        <button type="button" onclick="addNewProduct()">Add Product</button>
+        <button type="reset">Reset</button>
+    </form>
+</section>
+
+
+
+<section id="product-table" class="price-table">
+    <div class="search-and-add">
+		<input type="text" id="search-box" placeholder="Search vegetable..." oninput="searchVegetable()">
+		<button class="btn-add" onclick="toggleAddNewProduct()">Add New Product</button>
+	</div>
+	<table>
+        <thead>
+            <tr>
+                <th>Crop ID</th>
+                <th>Crop Name</th>
+                <th>Price</th>
+                <th>Unit</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+            <tr>
+                <td>1</td>
+                <td>Garlic</td>
+                <td>300</td>
+                <td>1 KG</td>
+                <td>
+                    <input type="checkbox" id="view-1" onclick="viewCrop(1)"> View
+                    <input type="checkbox" id="edit-1" onclick="editCrop(1)"> Edit
+                    <input type="checkbox" id="delete-1" onclick="deleteRow(1)"> Delete
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Cucumber</td>
+                <td>120</td>
+                <td>1 KG</td>
+                <td>
+                    <input type="checkbox" id="view-2" onclick="viewCrop(2)"> View
+                    <input type="checkbox" id="edit-2" onclick="editCrop(2)"> Edit
+                    <input type="checkbox" id="delete-2" onclick="deleteRow(2)"> Delete
+                </td>
+            </tr>
+			<tr>
+                <td>3</td>
+                <td>Onion</td>
+                <td>150</td>
+                <td>1 KG</td>
+                <td>
+                    <input type="checkbox" id="view-3" onclick="viewCrop(3)"> View
+                    <input type="checkbox" id="edit-3" onclick="editCrop(3)"> Edit
+                    <input type="checkbox" id="delete-3" onclick="deleteRow(3)"> Delete
+                </td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Cabbage</td>
+                <td>30</td>
+                <td>1 KG</td>
+                <td>
+                    <input type="checkbox" id="view-4" onclick="viewCrop(4)"> View
+                    <input type="checkbox" id="edit-4" onclick="editCrop(4)"> Edit
+                    <input type="checkbox" id="delete-4" onclick="deleteRow(4)"> Delete
+                </td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Tomato</td>
+                <td>200</td>
+                <td>1 KG</td>
+                <td>
+                    <input type="checkbox" id="view-5" onclick="viewCrop(5)"> View
+                    <input type="checkbox" id="edit-5" onclick="editCrop(5)"> Edit
+                    <input type="checkbox" id="delete-5" onclick="deleteRow(5)"> Delete
+                </td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Cauliflower</td>
+                <td>50</td>
+                <td>1 PCS</td>
+                <td>
+                    <input type="checkbox" id="view-6" onclick="viewCrop(6)"> View
+                    <input type="checkbox" id="edit-6" onclick="editCrop(6)"> Edit
+                    <input type="checkbox" id="delete-6" onclick="deleteRow(6)"> Delete
+                </td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Potato</td>
+                <td>70</td>
+                <td>1 KG</td>
+                <td>
+                    <input type="checkbox" id="view-7" onclick="viewCrop(7)"> View
+                    <input type="checkbox" id="edit-7" onclick="editCrop(7)"> Edit
+                    <input type="checkbox" id="delete-7" onclick="deleteRow(7)"> Delete
+                </td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>Lemon</td>
+                <td>40</td>
+                <td>4 PCS</td>
+                <td>
+                    <input type="checkbox" id="view-8" onclick="viewCrop(8)"> View
+                    <input type="checkbox" id="edit-8" onclick="editCrop(8)"> Edit
+                    <input type="checkbox" id="delete-8" onclick="deleteRow(8)"> Delete
+                </td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>Lady's Finger</td>
+                <td>80</td>
+                <td>1 KG</td>
+                <td>
+                    <input type="checkbox" id="view-9" onclick="viewCrop(9)"> View
+                    <input type="checkbox" id="edit-9" onclick="editCrop(9)"> Edit
+                    <input type="checkbox" id="delete-9" onclick="deleteRow(9)"> Delete
+                </td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>Eggplant</td>
+                <td>100</td>
+                <td>1 KG</td>
+                <td>
+                    <input type="checkbox" id="view-10" onclick="viewCrop(10)"> View
+                    <input type="checkbox" id="edit-10" onclick="editCrop(10)"> Edit
+                    <input type="checkbox" id="delete-10" onclick="deleteRow(10)"> Delete
+                </td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>Radish</td>
+                <td>80</td>
+                <td>1 KG</td>
+                <td>
+                    <input type="checkbox" id="view-11" onclick="viewCrop(11)"> View
+                    <input type="checkbox" id="edit-11" onclick="editCrop(11)"> Edit
+                    <input type="checkbox" id="delete-11" onclick="deleteRow(11)"> Delete
+                </td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>Spinach</td>
+                <td>60</td>
+                <td>1 PCS</td>
+                <td>
+                    <input type="checkbox" id="view-12" onclick="viewCrop(12)"> View
+                    <input type="checkbox" id="edit-12" onclick="editCrop(12)"> Edit
+                    <input type="checkbox" id="delete-12" onclick="deleteRow(12)"> Delete
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="crop-info" style="display: none; margin-top: 20px; border: 1px solid #ccc; padding: 10px;"></div>
+</section>
+
+
+
+
+
 
 <section class="box-container">
     <div class="box">
