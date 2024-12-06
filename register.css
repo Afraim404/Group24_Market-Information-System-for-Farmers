@@ -110,6 +110,23 @@ body {
     text-decoration: underline;
 }
 
+.officer-fields {
+    margin-top: 20px;
+}
+
+.officer-fields .input-box {
+    margin-bottom: 16px;
+}
+
+.officer-fields textarea {
+    width: 100%;
+    padding: 5px;
+    font-family: 'Poppins', sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
 @media (max-width: 480px) {
     .wrapper {
         width: 90%;

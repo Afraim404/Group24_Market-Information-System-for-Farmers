@@ -136,18 +136,20 @@ nav {
     justify-content: center;
     gap: 2rem;
     padding: 3rem 2rem;
-    background-color: hsl(0, 0%, 96%);
+    background-color: hsl(60, 70%, 89%);
 }
 
 .box {
-    background-color: hsl(340, 3%, 19%);
-    color: hsl(0, 0%, 96%);
-    width: 300px;
+    background-color: hsl(340, 5%, 20%);
+    color: hsl(0, 0%, 80%);
+    width: 350px;
     padding: 1.75rem;
     border-radius: 10px;
     text-align: center;
+    position: relative; /* Ensure hover text positioning works */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Prevent text overflow */
 }
 
 .box:hover {
@@ -162,11 +164,23 @@ nav {
 }
 
 .box p {
+    position: absolute; /* Position text for hover effect */
+    bottom: -100%; /* Initially hide below the card */
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.85); /* Add semi-transparent background */
+    color: hsl(0, 0%, 96%);
     font-size: 1rem;
+    padding: 1rem;
     line-height: 1.5;
-    margin-bottom: 1.5rem;
+    transition: bottom 0.3s ease-in-out; /* Smooth reveal effect */
 }
 
+.box:hover p {
+    bottom: 0; /* Reveal text on hover */
+}
+
+/* Weather and Time Widget */
 .weather-time-widget {
     position: fixed;
     top: 10%;

@@ -12,23 +12,37 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch Officer Data
-$sql = "SELECT Officer_ID, PositionTitle, Department, Responsibilities, OfficeAvailability FROM government_officers";
+// SQL Query to Fetch Data from government_officers Table
+$sql = "SELECT 
+            Officer_ID,
+            PositionTitle,
+            Department,
+            Responsibilities,
+            OfficeAvailability
+        FROM government_officers";
+
+// Execute the Query
 $result = $conn->query($sql);
 
+// Initialize an Array to Hold Data
 $data = array();
 
-if ($result->num_rows > 0) {
-    // Fetch all rows
+if ($result && $result->num_rows > 0) {
+    // Fetch All Rows
     while ($row = $result->fetch_assoc()) {
         $data[] = $row;
     }
+} else {
+    // Return an Empty Array if No Data Found
+    $data = [];
 }
 
-// Output data as JSON
+// Set the Content-Type to JSON
 header('Content-Type: application/json');
+
+// Return Data as JSON
 echo json_encode($data);
 
-// Close Connection
+// Close the Database Connection
 $conn->close();
 ?>
