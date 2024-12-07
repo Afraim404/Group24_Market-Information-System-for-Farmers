@@ -106,13 +106,13 @@
           data.users.forEach((user) => {
             const row = document.createElement('tr');
             row.innerHTML = `
-              <td>${user.User_ID}</td>
-              <td>${user.Username}</td>
-              <td>${user.Email}</td>
-              <td>${user.UserType}</td>
+              <td>${user.id}</td>
+              <td>${user.username}</td>
+              <td>${user.email}</td>
+              <td>${user.user_type}</td>
               <td>
-                <button class="btn-primary" onclick="editUser(${user.User_ID})">Edit</button>
-                <button class="btn-secondary" onclick="deleteUser(${user.User_ID})">Delete</button>
+                <button class="btn-primary" onclick="editUser(${user.id})">Edit</button>
+                <button class="btn-secondary" onclick="deleteUser(${user.id})">Delete</button>
               </td>
             `;
             tableBody.appendChild(row);
@@ -122,7 +122,7 @@
         }
 
         // Prepare data for the User Type Distribution Pie chart
-        const userTypeLabels = data.user_types.map(type => type.UserType);
+        const userTypeLabels = data.user_types.map(type => type.user_type);  // Corrected to 'user_type'
         const userTypeCounts = data.user_types.map(type => type.count);
 
         // Pie Chart for User Type Distribution
@@ -163,7 +163,7 @@
         backgroundColor: 'rgba(96, 176, 82, 0.6)',
         borderColor: 'rgba(96, 176, 82, 1)',
         borderWidth: 1,
-      }],
+      }], 
     };
 
     const salesConfig = {

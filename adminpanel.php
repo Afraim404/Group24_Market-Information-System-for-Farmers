@@ -25,8 +25,8 @@ if ($result->num_rows > 0) {
 }
 
 // SQL query to get user types
-$sql_user_types = "SELECT UserType, COUNT(*) AS count FROM users GROUP BY UserType";
-$user_types_result = $conn->query($sql_user_types);
+$sql_user_types = "SELECT user_type, COUNT(*) AS count FROM users GROUP BY user_type";
+$user_types_result = $conn->query($sql_user_types); 
 
 // Fetch the user type counts
 $user_types = [];
@@ -37,7 +37,7 @@ if ($user_types_result->num_rows > 0) {
 }
 
 // SQL query to get all users (for the table)
-$sql_users = "SELECT User_ID, Username, Email, UserType FROM users";
+$sql_users = "SELECT id, username, email, user_type FROM users";
 $users_result = $conn->query($sql_users);
 
 // Fetch all users
