@@ -70,28 +70,6 @@
             </table>
         </section>
 
-        <section id="offices" class="dashboard-section">
-            <h2>Government Offices</h2>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Office ID</th>
-                        <th>Location</th>
-                        <th>Contact Number</th>
-                        <th>Service Information</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>201</td>
-                        <td>Dhaka Agriculture Office</td>
-                        <td>01325409987</td>
-                        <td>Crop advisory, pest control support</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-
         <section id="loans" class="dashboard-section">
             <h2>Loan Financing for Farmers</h2>
             <table class="data-table">
@@ -210,18 +188,13 @@
     </footer>
 
     <script>
-        // Fetch officer data from the PHP backend
-        fetch('government_officers.php')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
+        // Fetch officer data (users with user_type 'officer') from the backend
+        fetch('gvtdash.php')
+            .then(response => response.json())
             .then(data => {
                 const tableBody = document.getElementById('officer-table-body');
                 tableBody.innerHTML = ""; // Clear existing rows
-
+    
                 if (data.length === 0) {
                     // Show a message if no officers are found
                     tableBody.innerHTML = `<tr><td colspan="5">No officers found.</td></tr>`;
@@ -229,12 +202,15 @@
                     // Populate the table with officer data
                     data.forEach(officer => {
                         const row = document.createElement('tr');
-                        row.innerHTML = `
-                            <td>${officer.Officer_ID}</td>
-                            <td>${officer.PositionTitle}</td>
-                            <td>${officer.Department}</td>
-                            <td>${officer.Responsibilities}</td>
-                            <td>${officer.OfficeAvailability == 1 ? "Available" : "Not Available"}</td>
+
+                        const availability = officer.availability == 1 ? '✓' : '✘';
+
+                        row.innerHTML = ` 
+                            <td>${officer.id}</td>
+                            <td>${officer.position_title}</td>
+                            <td>${officer.department}</td>
+                            <td>${officer.responsibilities}</td>
+                            <td>${availability}</td>
                         `;
                         tableBody.appendChild(row);
                     });
@@ -246,5 +222,6 @@
                 tableBody.innerHTML = `<tr><td colspan="5">Error loading data. Please try again later.</td></tr>`;
             });
     </script>
+    
 </body>
 </html>

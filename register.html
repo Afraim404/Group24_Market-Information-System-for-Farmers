@@ -38,7 +38,7 @@
                 </select>
             </div>
             <div class="input-box">
-                <select name="user_type" id="userType" required>
+                <select name="user_type" id="userType" required onchange="toggleOfficerFields()">
                     <option value="" disabled selected>Select User Type</option>
                     <option value="Farmer">Farmer</option>
                     <option value="Officer">Officer</option>
@@ -48,21 +48,21 @@
             </div>
 
             <!-- Officer-Specific Fields -->
-            <div class="officer-fields" style="display: none;">
+            <div id="officerFields" class="officer-fields" style="display: none;">
                 <div class="input-box">
-                    <input type="text" name="position" placeholder="Position Title">
+                    <input type="text" name="position_title" placeholder="Position Title" required>
                     <i class='bx bxs-briefcase'></i>
                 </div>
                 <div class="input-box">
-                    <input type="text" name="department" placeholder="Department">
+                    <input type="text" name="department" placeholder="Department" required>
                     <i class='bx bxs-building'></i>
                 </div>
                 <div class="input-box">
-                    <textarea name="responsibilities" placeholder="Responsibilities" rows="3"></textarea>
+                    <textarea name="responsibilities" placeholder="Responsibilities" rows="3" required></textarea>
                     <i class='bx bxs-task'></i>
                 </div>
                 <div class="input-box">
-                    <select name="availability">
+                    <select name="availability" required>
                         <option value="" disabled selected>Select Availability</option>
                         <option value="1">Available</option>
                         <option value="0">Not Available</option>
@@ -78,6 +78,19 @@
     </div>
 
     <script src="register.js"></script>
+    <script>
+        // JavaScript to toggle the officer-specific fields
+        function toggleOfficerFields() {
+            var userType = document.getElementById("userType").value;
+            var officerFields = document.getElementById("officerFields");
+
+            if (userType === "Officer") {
+                officerFields.style.display = "block"; // Show officer fields
+            } else {
+                officerFields.style.display = "none"; // Hide officer fields
+            }
+        }
+    </script>
 </body>
 
 </html>

@@ -23,13 +23,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $gender = mysqli_real_escape_string($conn, trim($_POST['gender']));
     $user_type = mysqli_real_escape_string($conn, trim($_POST['user_type']));
 
-    // Debugging input (Optional)
-    // echo "Debug: Entered Username = $username<br>";
-    // echo "Debug: Entered Phone = $phone<br>";
-    // echo "Debug: Entered Email = $email<br>";
-    // echo "Debug: Entered Address = $address<br>";
-    // echo "Debug: Entered Gender = $gender<br>";
-    // echo "Debug: Entered User Type = $user_type<br>";
+    // Officer-specific data (if applicable)
+    $position_title = mysqli_real_escape_string($conn, trim($_POST['position_title']));
+    $department = mysqli_real_escape_string($conn, trim($_POST['department']));
+    $responsibilities = mysqli_real_escape_string($conn, trim($_POST['responsibilities']));
+    $availability = mysqli_real_escape_string($conn, trim($_POST['availability']));
 
     // Check if the username already exists
     $sql_check = "SELECT * FROM users WHERE username = '$username'";
@@ -39,8 +37,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Username already taken. Please choose another one.";
     } else {
         // Insert the new user into the database
-        $sql = "INSERT INTO users (username, phone, email, address, gender, user_type) 
-                VALUES ('$username', '$phone', '$email', '$address', '$gender', '$user_type')";
+        if ($user_type == 'Officer') {
+            $sql = "INSERT INTO users (username, phone, email, address, gender, user_type, position_title, department, responsibilities, availability) 
+                    VALUES ('$username', '$phone', '$email', '$address', '$gender', '$user_type', '$position_title', '$department', '$responsibilities', '$availability')";
+        } else {
+            $sql = "INSERT INTO users (username, phone, email, address, gender, user_type) 
+                    VALUES ('$username', '$phone', '$email', '$address', '$gender', '$user_type')";
+        }
 
         if ($conn->query($sql) === TRUE) {
             echo "Registration successful! You can <a href='login.html'>login</a> now.";

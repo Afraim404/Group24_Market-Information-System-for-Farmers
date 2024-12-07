@@ -12,14 +12,15 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// SQL Query to Fetch Data from government_officers Table
+// SQL Query to Fetch Data from users Table (where user_type = 'officer')
 $sql = "SELECT 
-            Officer_ID,
-            PositionTitle,
-            Department,
-            Responsibilities,
-            OfficeAvailability
-        FROM government_officers";
+            id,
+            position_title,
+            department,
+            responsibilities,
+            availability
+        FROM users
+        WHERE user_type = 'officer'";  // Assuming there is a user_type column with 'officer' as a value
 
 // Execute the Query
 $result = $conn->query($sql);
