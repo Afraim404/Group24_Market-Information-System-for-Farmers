@@ -65,6 +65,40 @@ nav {
     background-color: hsl(340, 3%, 95%);
 }
 
+/* Move Sign Out Button to the Far Right */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-left: auto; /* Pushes the nav-right items to the far right */
+}
+
+.nav-items a {
+    text-decoration: none;
+    color: hsl(340, 3%, 19%);
+    padding: 0.5rem 1rem;
+    transition: color 0.3s, background-color 0.3s;
+    border-radius: 5px;
+}
+
+.nav-items a:hover {
+    color: hsl(96, 100%, 33%);
+    background-color: hsl(340, 3%, 95%);
+}
+
+/* Button Styling for Sign Out */
+.btn-secondary {
+    background-color: hsl(210, 70%, 40%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.btn-secondary:hover {
+    background-color: hsl(210, 80%, 30%);
+}
+
 /* Dashboard Section */
 .dashboard-section {
     padding: 2rem;
@@ -137,6 +171,140 @@ nav {
     opacity: 0.7;
 }
 
+/* Section Header */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.add-button {
+    background-color: hsl(96, 100%, 33%);
+    color: hsl(0, 0%, 96%);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.add-button:hover {
+    background-color: hsl(63.98, 79.04%, 55.1%);
+    transform: scale(1.05);
+}
+
+/* Action Buttons */
+.action-button {
+    margin: 0 0.25rem;
+    padding: 0.4rem 0.8rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.action-button.view {
+    background-color: hsl(230, 76%, 54%);
+    color: white;
+}
+
+.action-button.edit {
+    background-color: hsl(40, 78%, 62%);
+    color: black;
+}
+
+.action-button.delete {
+    background-color: hsl(0, 70%, 50%);
+    color: white;
+}
+
+.action-button:hover {
+    transform: scale(1.1);
+}
+
+/* Popup Form */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: hsl(0, 0%, 96%);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    width: 400px;
+    z-index: 1000;
+}
+
+.popup-content {
+    padding: 2rem;
+    position: relative;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    color: hsl(0, 70%, 50%);
+    cursor: pointer;
+}
+
+form label {
+    display: block;
+    margin: 0.5rem 0 0.2rem;
+    font-weight: bold;
+}
+
+form input, form textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid hsl(340, 3%, 19%);
+    border-radius: 5px;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: hsl(96, 100%, 33%);
+    border: none;
+    color: hsl(0, 0%, 96%);
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.submit-button:hover {
+    background-color: hsl(63.98, 79.04%, 55.1%);
+    transform: scale(1.05);
+}
+
+/* Action Buttons for Loan and Training */
+.action-button.mark-paid {
+    background-color: hsl(144, 50%, 50%);
+    color: white;
+}
+
+.action-button.mark-completed {
+    background-color: hsl(210, 70%, 50%);
+    color: white;
+}
+
+.action-button.mark-paid:hover, 
+.action-button.mark-completed:hover {
+    transform: scale(1.1);
+    background-color: hsl(144, 60%, 40%);
+}
+
+.action-button.mark-completed:hover {
+    background-color: hsl(210, 80%, 40%);
+}
+
 /* Footer */
 footer {
     background-color: hsl(340, 3%, 19%);
@@ -146,32 +314,4 @@ footer {
     font-size: 0.9rem;
     border-top: 2px solid hsl(60, 39%, 89%);
     margin-top: auto;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .nav-items {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    .dashboard-section {
-        padding: 1.5rem;
-        margin: 1.5rem;
-    }
-
-    .data-table th, .data-table td {
-        font-size: 0.9rem;
-        padding: 0.5rem;
-    }
-
-    .approve-button {
-        padding: 0.5rem;
-        font-size: 0.9rem;
-    }
 }

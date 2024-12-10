@@ -49,7 +49,10 @@
         </section>
 
         <section id="offices" class="dashboard-section">
-            <h2>Government Offices</h2>
+            <div class="section-header">
+                <h2>Government Offices</h2>
+                <button class="add-button" onclick="openPopup()">Add Office</button>
+            </div>
             <table class="data-table">
                 <thead>
                     <tr>
@@ -57,58 +60,73 @@
                         <th>Location</th>
                         <th>Contact Number</th>
                         <th>Service Information</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>201</td>
+                        <td>GO201</td>
                         <td>Dhaka Agriculture Office</td>
                         <td>01325409987</td>
                         <td>Crop advisory, pest control support</td>
+                        <td>
+                            <button class="action-button view">View</button>
+                            <button class="action-button edit">Edit</button>
+                            <button class="action-button delete">Delete</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </section>
 
         <section id="loans" class="dashboard-section">
-            <h2>Loan Financing for Farmers</h2>
+            <h2>Loan Financing</h2>
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th>Farmer ID</th>
+                        <th>Loan ID</th>
                         <th>Farmer Name</th>
-                        <th>Loan Amount</th>
-                        <th>Financing Officer</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>F001</td>
-                        <td>Naef Babar</td>
-                        <td>5,000 tk.</td>
-                        <td>Officer 101 - Ansar Miah</td>
+                        <td>LA1001</td>
+                        <td>Ali Khan</td>
+                        <td>$5,000</td>
+                        <td>Pending</td>
+                        <td>
+                            <button class="action-button mark-paid" onclick="markAsPaid(this)">Mark as Paid</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </section>
-
+    
+        <!-- Training Status Section -->
         <section id="training" class="dashboard-section">
-            <h2>Farmer Training Status</h2>
+            <h2>Training Status</h2>
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th>Farmer ID</th>
+                        <th>Training ID</th>
                         <th>Farmer Name</th>
-                        <th>Training Sessions Completed</th>
-                        <th>Current Training Status</th>
+                        <th>Training Topic</th>
+                        <th>Status</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>F002</td>
-                        <td>Shihab Kazi</td>
-                        <td>3</td>
-                        <td>In Progress</td>
+                        <td>TA5001</td>
+                        <td>Ahmed Malik</td>
+                        <td>Sustainable Farming</td>
+                        <td>Ongoing</td>
+                        <td>
+                            <button class="action-button mark-completed" onclick="markTrainingCompleted(this)">Training Completed</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -119,8 +137,7 @@
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th>Application ID</th>
-                        <th>Farmer ID</th>
+                        <th>Loan ID</th>
                         <th>Farmer Name</th>
                         <th>Requested Amount</th>
                         <th>Purpose</th>
@@ -130,7 +147,6 @@
                 <tbody>
                     <tr>
                         <td>LA001</td>
-                        <td>F003</td>
                         <td>Rahul Das</td>
                         <td>10,000 tk.</td>
                         <td>Farm Equipment</td>
@@ -138,7 +154,6 @@
                     </tr>
                     <tr>
                         <td>LA002</td>
-                        <td>F004</td>
                         <td>Fatema Khatun</td>
                         <td>15,000 tk.</td>
                         <td>Irrigation System</td>
@@ -153,8 +168,7 @@
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th>Application ID</th>
-                        <th>Farmer ID</th>
+                        <th>Training ID</th>
                         <th>Farmer Name</th>
                         <th>Training Type</th>
                         <th>Requested Date</th>
@@ -164,7 +178,6 @@
                 <tbody>
                     <tr>
                         <td>TA001</td>
-                        <td>F005</td>
                         <td>Jahangir Alam</td>
                         <td>Crop Management</td>
                         <td>12/15/2024</td>
@@ -172,7 +185,6 @@
                     </tr>
                     <tr>
                         <td>TA002</td>
-                        <td>F006</td>
                         <td>Sonia Akter</td>
                         <td>Pest Control</td>
                         <td>12/20/2024</td>
@@ -186,6 +198,24 @@
     <footer>
         <p>&copy; 2024 agriBridge. All rights reserved.</p>
     </footer>
+
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close-button" onclick="closePopup()">&times;</span>
+            <h2>Add New Office</h2>
+            <form>
+                <label for="office-id">Office ID</label>
+                <input type="text" id="office-id" name="office-id" required>
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" required>
+                <label for="contact-number">Contact Number</label>
+                <input type="text" id="contact-number" name="contact-number" required>
+                <label for="service-info">Service Information</label>
+                <textarea id="service-info" name="service-info" required></textarea>
+                <button type="submit" class="submit-button">Add Office</button>
+            </form>
+        </div>
+    </div>
 
     <script>
         // Fetch officer data (users with user_type 'officer') from the backend
@@ -222,6 +252,37 @@
                 tableBody.innerHTML = `<tr><td colspan="5">Error loading data. Please try again later.</td></tr>`;
             });
     </script>
+    
+    <script>
+        function openPopup() {
+            document.getElementById("popup").style.display = "block";
+        }
+
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+    </script>
+
+    <script>
+        function markAsPaid(button) {
+    const row = button.closest('tr'); // Find the row of the button clicked
+    row.remove(); // Remove the row from the table
+    alert('Loan marked as paid and removed from the table.');
+}
+
+// Mark Training as Completed
+function markTrainingCompleted(button) {
+    const row = button.closest('tr'); // Find the row of the button clicked
+    const statusCell = row.querySelector('td:nth-child(4)'); // Get the "Status" cell
+    statusCell.textContent = 'Completed'; // Update status to "Completed"
+    button.remove(); // Remove the "Training Completed" button
+    alert('Training marked as completed.');
+}
+    </script>
+
+
+
+    
     
 </body>
 </html>
