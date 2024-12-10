@@ -9,6 +9,7 @@
 body {
     background-color: hsl(60, 39%, 89%);
     color: hsl(340, 3%, 19%);
+    line-height: 1.6;
 }
 
 /* Header */
@@ -16,7 +17,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.2rem 2rem;
+    padding: 0.5rem 2rem;
     background-color: hsl(340, 3%, 19%);
     color: white;
     position: fixed;
@@ -24,6 +25,7 @@ body {
     z-index: 1000;
     top: 0;
     left: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .header-left .logo {
@@ -66,20 +68,22 @@ body {
 
 /* Sidebar */
 .sidebar {
-    width: 150px;
+    width: 200px;
     background-color: hsl(96, 100%, 33%);
     color: white;
     padding: 1rem;
-    min-height: calc(100vh - 80px); /* Adjusted to account for header height */
+    min-height: calc(100vh - 60px);
     position: fixed;
-    top: 60px; /* Push below the header */
+    top: 60px;
     overflow-y: auto;
-    flex-grow: 1; /* Ensures the sidebar grows to fill available space */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
 }
 
 .sidebar-header {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+    font-size: 1.2rem;
 }
 
 .nav-items {
@@ -102,34 +106,41 @@ body {
 }
 
 .nav-items a:hover {
-    background-color: hsl(63.98, 79.04%, 55.1%);
-    color: hsl(340, 3%, 19%);
+    background-color: hsl(96, 80%, 45%);
+    color: white;
 }
 
 /* Main Content */
 .main-content {
-    margin-left: 250px;
-    margin-top: 80px; /* Push below the header */
+    margin-left: 220px;
+    margin-top: 80px;
     padding: 2rem;
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    background-color: hsl(60, 39%, 96%);
+    min-height: calc(100vh - 80px);
 }
 
 /* Stats Section */
 .stats-section {
     display: flex;
     gap: 1rem;
-    margin-bottom: 2rem;
+    flex-wrap: wrap;
 }
 
 .stat-card {
     background-color: white;
-    padding: 1rem;
+    padding: 1.5rem;
     border-radius: 5px;
     flex: 1;
     text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
 }
 
 .stat-card h3 {
@@ -147,8 +158,7 @@ body {
 .charts-section {
     display: flex;
     gap: 2rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap; /* Allows cards to wrap on smaller screens */
+    flex-wrap: wrap;
     justify-content: space-between;
 }
 
@@ -156,9 +166,9 @@ body {
     background-color: white;
     padding: 1.5rem;
     border-radius: 5px;
-    flex: 1 1 45%; /* Adjust to make the charts smaller */
+    flex: 1 1 45%;
     text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .chart-card h3 {
@@ -174,9 +184,8 @@ body {
 
 /* Table Section */
 .table-section {
-    margin-top: 2rem;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 2rem;
 }
 
@@ -188,25 +197,23 @@ body {
 .user-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 1rem;
     background-color: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     overflow: hidden;
-    border-spacing: 0;
-    flex: 1 1 48%; /* Ensures table occupies part of the width */
+    text-align: left;
 }
 
 .user-table thead {
     background-color: hsl(96, 100%, 33%);
     color: white;
+    font-weight: bold;
 }
 
 .user-table th,
 .user-table td {
     padding: 0.75rem;
     border: 1px solid hsl(96, 50%, 60%);
-    text-align: left;
 }
 
 .user-table tbody tr:nth-child(even) {
@@ -218,8 +225,9 @@ body {
     color: white;
 }
 
-.user-table .btn-primary, .user-table .btn-secondary {
-    padding: 0.5rem;
+.user-table .btn-primary,
+.user-table .btn-secondary {
+    padding: 0.5rem 1rem;
     border: none;
     border-radius: 3px;
     cursor: pointer;
@@ -236,11 +244,11 @@ body {
     color: white;
 }
 
-.user-table .btn-primary:hover, .user-table .btn-primary:focus {
+.user-table .btn-primary:hover {
     background-color: hsl(96, 90%, 40%);
 }
 
-.user-table .btn-secondary:hover, .user-table .btn-secondary:focus {
+.user-table .btn-secondary:hover {
     background-color: hsl(39, 90%, 40%);
 }
 
