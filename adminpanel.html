@@ -10,7 +10,7 @@
 <body>
   <header class="top-header">
     <div class="header-left">
-      <img src="LogoWhiteBG.jpg" alt="AgriBridge" class="logo">
+      <img src="LogoWhiteBG.jpg" alt="AgriBridge Logo" class="logo" title="AgriBridge">
     </div>
     <div class="header-right">
       <ul class="nav-options">
@@ -23,7 +23,7 @@
   <div class="dashboard-container">
     <aside class="sidebar">
       <div class="sidebar-header">
-        <p>Admin</p>
+        <p>Admin Dashboard</p>
       </div>
       <ul class="nav-items">
         <li><a href="homepage.html">Homepage</a></li>
@@ -46,25 +46,24 @@
       <section class="stats-section">
         <div class="stat-card green">
           <h3>Total Users</h3>
-          <p>Loading</p> <!-- Placeholder for dynamic content -->
+          <p id="total-users">Loading...</p>
         </div>
         <div class="stat-card orange">
           <h3>Active Users</h3>
-          <p>5/p>
+          <p id="active-users">Loading...</p>
         </div>
         <div class="stat-card light-green">
           <h3>Total Orders</h3>
-          <p>4,500</p>
+          <p id="total-orders">Loading...</p>
         </div>
         <div class="stat-card dark-green">
           <h3>Total Revenue</h3>
-          <p>BDT 1,500,000</p>
-        </div>        
+          <p id="total-revenue">Loading...</p>
+        </div>
       </section>
 
       <!-- Main Content Section with Charts and Table -->
       <section class="charts-and-table">
-        <!-- Charts Section -->
         <div class="charts-section">
           <div class="chart-card">
             <h3>Sales Report</h3>
@@ -76,7 +75,6 @@
           </div>
         </div>
 
-        <!-- Table Section -->
         <section class="table-section">
           <h3>Registered Users</h3>
           <table class="user-table">
@@ -100,105 +98,83 @@
 
   <!-- JavaScript -->
   <script>
-    // Fetch data for total users, user types, and registered users
-    fetch('adminpanel.php')
-      .then(response => response.json())
-      .then(data => {
-        // Update the "Total Users" stat card with the fetched data
-        document.querySelector('.stat-card.green p').textContent = data.total_users;
+    async function fetchDashboardData() {
+      try {
+        const response = await fetch('adminpanel.php');
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        const data = await response.json();
 
-        // Populate the user table with fetched users
+        // Populate stats
+        document.getElementById('total-users').textContent = data.total_users || 0;
+        document.getElementById('total-orders').textContent = data.total_orders || 0;
+        document.getElementById('total-revenue').textContent = `BDT ${Number(data.total_revenue || 0).toFixed(2)}`;
+
+        // Populate user table
         const tableBody = document.getElementById('user-table-body');
-        if (data.users.length > 0) {
-          data.users.forEach((user) => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-              <td>${user.id}</td>
-              <td>${user.username}</td>
-              <td>${user.email}</td>
-              <td>${user.user_type}</td>
-              <td>
-                <button class="btn-primary" onclick="editUser(${user.id})">Edit</button>
-                <button class="btn-secondary" onclick="deleteUser(${user.id})">Delete</button>
-              </td>
-            `;
-            tableBody.appendChild(row);
-          });
-        } else {
-          tableBody.innerHTML = '<tr><td colspan="5">No users found</td></tr>';
-        }
+        tableBody.innerHTML = data.users && data.users.length
+          ? data.users.map(user => `
+              <tr>
+                <td>${user.id}</td>
+                <td>${user.username}</td>
+                <td>${user.email}</td>
+                <td>${user.user_type}</td>
+                <td>
+                  <button class="btn-primary" aria-label="View user ${user.username}" onclick="viewUser(${user.id})">View</button>
+                  <button class="btn-primary" aria-label="Edit user ${user.username}" onclick="editUser(${user.id})">Edit</button>
+                  <button class="btn-secondary" aria-label="Delete user ${user.username}" onclick="deleteUser(${user.id})">Delete</button>
+                </td>
+              </tr>
+            `).join('')
+          : '<tr><td colspan="5">No users found</td></tr>';
 
-        // Prepare data for the User Type Distribution Pie chart
-        const userTypeLabels = data.user_types.map(type => type.user_type);  // Corrected to 'user_type'
-        const userTypeCounts = data.user_types.map(type => type.count);
+        // Charts
+        renderCharts(data.user_types || []);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
 
-        // Pie Chart for User Type Distribution
-        const userTypeData = {
+    function renderCharts(userTypes) {
+      const userTypeLabels = userTypes.map(type => type.user_type);
+      const userTypeCounts = userTypes.map(type => type.count);
+
+      // User Type Pie Chart
+      new Chart(document.getElementById('userTypeChart'), {
+        type: 'pie',
+        data: {
           labels: userTypeLabels,
           datasets: [{
-            label: 'User Type Distribution',
             data: userTypeCounts,
-            backgroundColor: ['rgba(96, 176, 82, 0.6)', 'rgba(255, 159, 64, 0.6)', 'rgba(54, 162, 235, 0.6)'], // Color palette
-            borderColor: ['rgba(96, 176, 82, 1)', 'rgba(255, 159, 64, 1)', 'rgba(54, 162, 235, 1)'],
-            borderWidth: 1,
+            backgroundColor: ['#60b052', '#ff9f40', '#36a2eb'],
           }],
-        };
-
-        const userTypeConfig = {
-          type: 'pie',
-          data: userTypeData,
-          options: {
-            responsive: true,
-            plugins: {
-              legend: { position: 'top' },
-              title: { display: true, text: 'Distribution of User Types' },
-            },
-          },
-        };
-
-        const userTypeChartCtx = document.getElementById('userTypeChart').getContext('2d');
-        new Chart(userTypeChartCtx, userTypeConfig);
-      })
-      .catch((error) => console.error('Error fetching user data:', error));
-
-    // Dummy data for sales chart
-    const salesData = {
-      labels: ['Dhaka', 'Chittagong', 'Comilla', 'Khulna', 'Sylhet', 'Barishal'],
-      datasets: [{
-        label: 'Total Sales (in BDT)',
-        data: [4500, 3200, 5000, 7000, 6000, 4000],
-        backgroundColor: 'rgba(96, 176, 82, 0.6)',
-        borderColor: 'rgba(96, 176, 82, 1)',
-        borderWidth: 1,
-      }], 
-    };
-
-    const salesConfig = {
-      type: 'bar',
-      data: salesData,
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { position: 'top' },
-          title: { display: true, text: 'Total Sales by Farmers (Area Wise)' },
         },
-        scales: {
-          y: { beginAtZero: true },
+        options: { plugins: { legend: { position: 'top' } } },
+      });
+
+      // Dummy Sales Chart
+      new Chart(document.getElementById('salesChart'), {
+        type: 'bar',
+        data: {
+          labels: ['Dhaka', 'Chittagong', 'Comilla', 'Khulna', 'Sylhet', 'Barishal'],
+          datasets: [{ label: 'Total Sales (in BDT)', data: [4500, 3200, 5000, 7000, 6000, 4000], backgroundColor: '#60b052' }],
         },
-      },
-    };
+        options: { scales: { y: { beginAtZero: true } } },
+      });
+    }
 
-    const salesChartCtx = document.getElementById('salesChart').getContext('2d');
-    new Chart(salesChartCtx, salesConfig);
-
-    // Edit and Delete Actions
     function editUser(userId) {
-      alert(`Edit user with ID: ${userId}`);
+      alert(`Editing user ${userId}`);
+      // Add your edit functionality here
     }
 
     function deleteUser(userId) {
-      alert(`Delete user with ID: ${userId}`);
+      if (confirm(`Are you sure you want to delete user ${userId}?`)) {
+        alert(`User ${userId} deleted.`);
+        // Add your delete functionality here
+      }
     }
+
+    fetchDashboardData();
   </script>
 </body>
-</html>
+</html> 
