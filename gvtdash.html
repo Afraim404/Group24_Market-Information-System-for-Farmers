@@ -46,6 +46,7 @@
                     <!-- Data will be dynamically loaded here -->
                 </tbody>
             </table>
+            <button class="btn-primary" id="print-all-users-btn">Print All Users</button>
         </section>
 
         <section id="offices" class="dashboard-section">
@@ -63,19 +64,10 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>GO201</td>
-                        <td>Dhaka Agriculture Office</td>
-                        <td>01325409987</td>
-                        <td>Crop advisory, pest control support</td>
-                        <td>
-                            <button class="action-button view">View</button>
-                            <button class="action-button edit">Edit</button>
-                            <button class="action-button delete">Delete</button>
-                        </td>
-                    </tr>
+                <tbody id="office-table-body">
+                    <!-- Data will be dynamically loaded here -->
                 </tbody>
+                                 
             </table>
         </section>
 
@@ -104,8 +96,7 @@
                 </tbody>
             </table>
         </section>
-    
-        <!-- Training Status Section -->
+
         <section id="training" class="dashboard-section">
             <h2>Training Status</h2>
             <table class="data-table">
@@ -218,21 +209,51 @@
     </div>
 
     <script>
+        // Fetch office data (from gvtdash.php or the appropriate endpoint)
+fetch('govtoffice.php')  // You can adjust the URL if the PHP script is elsewhere
+    .then(response => response.json())
+    .then(data => {
+        const tableBody = document.getElementById('office-table-body');
+        tableBody.innerHTML = ""; // Clear existing rows
+
+        if (data.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="5">No offices found.</td></tr>`;
+        } else {
+            data.forEach(office => {
+                const row = document.createElement('tr');
+
+                row.innerHTML = ` 
+                    <td>${office.OfficeID}</td>
+                    <td>${office.Location}</td>
+                    <td>${office.ContactNumber}</td>
+                    <td>${office.ServiceInformation}</td>
+                    <td>
+                        <button class="edit-button" onclick="editOffice(${office.office_id})">Edit</button>
+                        <button class="delete-button" onclick="deleteOffice(${office.office_id})">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching office data:', error);
+        const tableBody = document.getElementById('office-table-body');
+        tableBody.innerHTML = `<tr><td colspan="5">Error loading data. Please try again later.</td></tr>`;
+    });
+
         // Fetch officer data (users with user_type 'officer') from the backend
         fetch('gvtdash.php')
             .then(response => response.json())
             .then(data => {
                 const tableBody = document.getElementById('officer-table-body');
                 tableBody.innerHTML = ""; // Clear existing rows
-    
+
                 if (data.length === 0) {
-                    // Show a message if no officers are found
                     tableBody.innerHTML = `<tr><td colspan="5">No officers found.</td></tr>`;
                 } else {
-                    // Populate the table with officer data
                     data.forEach(officer => {
                         const row = document.createElement('tr');
-
                         const availability = officer.availability == 1 ? '✓' : '✘';
 
                         row.innerHTML = ` 
@@ -251,9 +272,8 @@
                 const tableBody = document.getElementById('officer-table-body');
                 tableBody.innerHTML = `<tr><td colspan="5">Error loading data. Please try again later.</td></tr>`;
             });
-    </script>
-    
-    <script>
+
+        // Popup handlers
         function openPopup() {
             document.getElementById("popup").style.display = "block";
         }
@@ -261,28 +281,22 @@
         function closePopup() {
             document.getElementById("popup").style.display = "none";
         }
-    </script>
 
-    <script>
+        // Mark loan as paid
         function markAsPaid(button) {
-    const row = button.closest('tr'); // Find the row of the button clicked
-    row.remove(); // Remove the row from the table
-    alert('Loan marked as paid and removed from the table.');
-}
+            const row = button.closest('tr');
+            row.remove();
+            alert('Loan marked as paid and removed from the table.');
+        }
 
-// Mark Training as Completed
-function markTrainingCompleted(button) {
-    const row = button.closest('tr'); // Find the row of the button clicked
-    const statusCell = row.querySelector('td:nth-child(4)'); // Get the "Status" cell
-    statusCell.textContent = 'Completed'; // Update status to "Completed"
-    button.remove(); // Remove the "Training Completed" button
-    alert('Training marked as completed.');
-}
+        // Mark training as completed
+        function markTrainingCompleted(button) {
+            const row = button.closest('tr');
+            const statusCell = row.querySelector('td:nth-child(4)');
+            statusCell.textContent = 'Completed';
+            button.remove();
+            alert('Training marked as completed.');
+        }
     </script>
-
-
-
-    
-    
 </body>
 </html>

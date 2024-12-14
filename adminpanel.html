@@ -91,6 +91,7 @@
               <!-- Rows will be dynamically added here -->
             </tbody>
           </table>
+          <button class="btn-primary" id="print-users-btn">Print Users</button>
         </section>
       </section>
     </div>
@@ -98,40 +99,50 @@
 
   <!-- JavaScript -->
   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchDashboardData();
+
+      document.querySelector('#print-users-btn').addEventListener('click', printUsers);
+    });
+
     async function fetchDashboardData() {
       try {
         const response = await fetch('adminpanel.php');
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
         const data = await response.json();
 
-        // Populate stats
-        document.getElementById('total-users').textContent = data.total_users || 0;
-        document.getElementById('total-orders').textContent = data.total_orders || 0;
-        document.getElementById('total-revenue').textContent = `BDT ${Number(data.total_revenue || 0).toFixed(2)}`;
-
-        // Populate user table
-        const tableBody = document.getElementById('user-table-body');
-        tableBody.innerHTML = data.users && data.users.length
-          ? data.users.map(user => `
-              <tr>
-                <td>${user.id}</td>
-                <td>${user.username}</td>
-                <td>${user.email}</td>
-                <td>${user.user_type}</td>
-                <td>
-                  <button class="btn-primary" aria-label="View user ${user.username}" onclick="viewUser(${user.id})">View</button>
-                  <button class="btn-primary" aria-label="Edit user ${user.username}" onclick="editUser(${user.id})">Edit</button>
-                  <button class="btn-secondary" aria-label="Delete user ${user.username}" onclick="deleteUser(${user.id})">Delete</button>
-                </td>
-              </tr>
-            `).join('')
-          : '<tr><td colspan="5">No users found</td></tr>';
-
-        // Charts
+        updateStats(data);
+        populateUserTable(data.users || []);
         renderCharts(data.user_types || []);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
+    }
+
+    function updateStats(data) {
+      document.querySelector('#total-users').textContent = data.total_users || 0;
+      document.querySelector('#total-orders').textContent = data.total_orders || 0;
+      document.querySelector('#total-revenue').textContent = `BDT ${Number(data.total_revenue || 0).toFixed(2)}`;
+    }
+
+    function populateUserTable(users) {
+      const tableBody = document.querySelector('#user-table-body');
+      tableBody.innerHTML = users.length
+        ? users.map(user => `
+            <tr>
+              <td>${user.id}</td>
+              <td>${user.username}</td>
+              <td>${user.email}</td>
+              <td>${user.user_type}</td>
+              <td>
+                <button class="btn-primary" aria-label="View user ${user.username}" onclick="viewUser(${user.id})">View</button>
+                <button class="btn-primary" aria-label="Edit user ${user.username}" onclick="editUser(${user.id})">Edit</button>
+                <button class="btn-secondary" aria-label="Delete user ${user.username}" onclick="deleteUser(${user.id})">Delete</button>
+              </td>
+            </tr>
+          `).join('')
+        : '<tr><td colspan="5">No users found</td></tr>';
     }
 
     function renderCharts(userTypes) {
@@ -139,7 +150,7 @@
       const userTypeCounts = userTypes.map(type => type.count);
 
       // User Type Pie Chart
-      new Chart(document.getElementById('userTypeChart'), {
+      new Chart(document.querySelector('#userTypeChart'), {
         type: 'pie',
         data: {
           labels: userTypeLabels,
@@ -152,15 +163,55 @@
       });
 
       // Dummy Sales Chart
-      new Chart(document.getElementById('salesChart'), {
+      new Chart(document.querySelector('#salesChart'), {
         type: 'bar',
         data: {
           labels: ['Dhaka', 'Chittagong', 'Comilla', 'Khulna', 'Sylhet', 'Barishal'],
-          datasets: [{ label: 'Total Sales (in BDT)', data: [4500, 3200, 5000, 7000, 6000, 4000], backgroundColor: '#60b052' }],
+          datasets: [{
+            label: 'Total Sales (in BDT)',
+            data: [4500, 3200, 5000, 7000, 6000, 4000],
+            backgroundColor: '#60b052',
+          }],
         },
         options: { scales: { y: { beginAtZero: true } } },
       });
     }
+
+    function printUsers() {
+  const tableRows = document.querySelectorAll('#user-table-body tr');
+  if (tableRows.length === 0) {
+    alert('No user data available to download.');
+    return;
+  }
+
+  // Generate CSV content
+  let csvContent = 'User ID,Name,Email,Role\n'; // CSV header without "Actions"
+  tableRows.forEach(row => {
+    const cells = row.querySelectorAll('td');
+    const rowData = Array.from(cells)
+      .slice(0, -1) // Exclude the last cell (Actions column)
+      .map(cell => `"${cell.textContent}"`) // Escape cell content with quotes
+      .join(',');
+    csvContent += `${rowData}\n`;
+  });
+
+  // Create a Blob from the CSV content
+  const blob = new Blob([csvContent], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+
+  // Create a temporary link to trigger download
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'registered_users.csv';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+
+  // Clean up the URL object
+  URL.revokeObjectURL(url);
+}
+
+
 
     function editUser(userId) {
       alert(`Editing user ${userId}`);
@@ -173,8 +224,6 @@
         // Add your delete functionality here
       }
     }
-
-    fetchDashboardData();
   </script>
 </body>
-</html> 
+</html>
