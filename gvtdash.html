@@ -208,13 +208,44 @@
         </div>
     </div>
 
+
+
+    <!-- Your existing HTML content ends here -->
+<script>
+    // JavaScript to handle form submission for adding a new office
+    document.querySelector('.popup-content form').addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+
+        fetch('addoffice.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                alert(result.success);
+                closePopup();
+                location.reload(); // Reload the page to update the table
+            } else {
+                alert(result.error);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+</script>
+</body>
+</html>
+
+
     <script>
-        // Fetch office data (from gvtdash.php or the appropriate endpoint)
-fetch('govtoffice.php')  // You can adjust the URL if the PHP script is elsewhere
+
+fetch('govtoffice.php')  // Adjust the endpoint path as needed
     .then(response => response.json())
     .then(data => {
         const tableBody = document.getElementById('office-table-body');
-        tableBody.innerHTML = ""; // Clear existing rows
+        tableBody.innerHTML = ""; // Clear previous rows
 
         if (data.length === 0) {
             tableBody.innerHTML = `<tr><td colspan="5">No offices found.</td></tr>`;
@@ -222,14 +253,14 @@ fetch('govtoffice.php')  // You can adjust the URL if the PHP script is elsewher
             data.forEach(office => {
                 const row = document.createElement('tr');
 
-                row.innerHTML = ` 
+                row.innerHTML = `
                     <td>${office.OfficeID}</td>
                     <td>${office.Location}</td>
                     <td>${office.ContactNumber}</td>
                     <td>${office.ServiceInformation}</td>
                     <td>
-                        <button class="edit-button" onclick="editOffice(${office.office_id})">Edit</button>
-                        <button class="delete-button" onclick="deleteOffice(${office.office_id})">Delete</button>
+                        <button class="edit-button" onclick="editOffice('${office.OfficeID}')">Edit</button>
+                        <button class="delete-button" onclick="deleteOffice('${office.OfficeID}')">Delete</button>
                     </td>
                 `;
                 tableBody.appendChild(row);
@@ -241,6 +272,7 @@ fetch('govtoffice.php')  // You can adjust the URL if the PHP script is elsewher
         const tableBody = document.getElementById('office-table-body');
         tableBody.innerHTML = `<tr><td colspan="5">Error loading data. Please try again later.</td></tr>`;
     });
+
 
         // Fetch officer data (users with user_type 'officer') from the backend
         fetch('gvtdash.php')

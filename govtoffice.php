@@ -1,55 +1,38 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// govtoffice.php
 
-// Database connection details
-$servername = "localhost";
-$username = "username";
-$password = "password";
-$dbname = "agribridge";
+header("Content-Type: application/json");
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+// Database credentials
+$host = "localhost";     // Your database host
+$user = "root";          // Your database username
+$password = "";          // Your database password
+$database = "agribridge"; // Your database name
+
+// Connect to MySQL
+$conn = new mysqli($host, $user, $password, $database);
 
 // Check connection
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} else {
-    echo "Connected successfully!<br>"; // Check if connection is successful
+    echo json_encode(["error" => "Database connection failed"]);
+    exit();
 }
 
-// SQL query to fetch government office data
+// Fetch all government offices
 $sql = "SELECT OfficeID, Location, ContactNumber, ServiceInformation FROM govt_offices";
-
-// Check if the query executes properly
 $result = $conn->query($sql);
-if (!$result) {
-    die("Query failed: " . $conn->error);
-} else {
-    echo "Query executed successfully!<br>"; // Log if query was successful
-}
 
-// Initialize an array to store office data
-$offices = array();
-
-// Check if rows were found
-echo "Number of rows fetched: " . $result->num_rows . "<br>";
+$offices = [];
 
 if ($result->num_rows > 0) {
-    // Fetch each row of data and add to the array
-    while($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch_assoc()) {
         $offices[] = $row;
     }
-} else {
-    // If no rows are found, return an empty array
-    echo "No offices found.<br>";
-    $offices = [];
 }
 
-// Output the office data as JSON
-header('Content-Type: application/json');
+// Send JSON response
 echo json_encode($offices);
 
-// Close the connection
+// Close connection
 $conn->close();
 ?>
