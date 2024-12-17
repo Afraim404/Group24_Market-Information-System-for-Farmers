@@ -1,6 +1,6 @@
 
 <?php
-include 'db-connection.php';  // Ensure this file is correctly included
+include 'db_connection.php';  // Ensure this file is correctly included
 
 // Fetch data from PriceHistory and Crops
 $sql = "SELECT crops.CropName, pricehistory.Year, pricehistory.Season, pricehistory.Price
