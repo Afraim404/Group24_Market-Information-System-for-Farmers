@@ -201,6 +201,30 @@ header {
 .confirm-btn:hover {
     background-color: #218838;
 }
+.user-info {
+    margin-top: 2rem; /* Top margin to create space from the order summary */
+}
+
+.user-info label {
+    display: block;
+    margin-bottom: 0.5rem; /* Space below labels */
+    font-weight: bold;
+    color: hsl(340, 3%, 19%); /* Make the label text darker */
+}
+
+.user-info input {
+    width: 100%; /* Full width for the input fields */
+    padding: 10px; /* Padding for better user experience */
+    font-size: 14px; /* Font size for readability */
+    border-radius: 4px; /* Rounded corners */
+    border: 1px solid #ddd; /* Light border for the input fields */
+    margin-bottom: 1rem; /* Space between input fields */
+}
+
+/* Adjusting the confirm button margin */
+.confirm-btn {
+    margin-top: 1rem; /* Reduce space above the button */
+}
 
 /* Footer */
 footer {

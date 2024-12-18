@@ -1,8 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Selectors for search and product features
     const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
     const searchInput = document.getElementById('search-input');
     const searchButton = document.getElementById('search-btn');
     const productContainers = document.querySelectorAll('.product-container');
+
+    // Selectors for profile dropdown
+    const profileBtn = document.getElementById('profile-btn');
+    const profileDropdown = document.getElementById('profile-dropdown');
+    const usernameElement = document.getElementById('username');
+    const useridElement = document.getElementById('userid');
+    const signoutButton = document.getElementById('signout-btn');
 
     /**
      * Add product to cart.
@@ -45,6 +53,40 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    /**
+     * Toggle profile dropdown visibility.
+     */
+    const toggleProfileDropdown = () => {
+        profileDropdown.classList.toggle('visible');
+    };
+
+    /**
+     * Sign out functionality.
+     */
+    const signOut = () => {
+        alert('You have been signed out.');
+        localStorage.removeItem('customerName');
+        localStorage.removeItem('customerId');
+        window.location.href = 'login.html'; // Redirect to login page
+    };
+
+    /**
+     * Initialize user details.
+     */
+    const initializeUserDetails = () => {
+        // Retrieve user details from localStorage
+        const customerName = localStorage.getItem('customerName') || 'Guest';
+        const customerId = localStorage.getItem('customerId') || 'None';
+
+        // Update the DOM elements with user details
+        if (usernameElement) {
+            usernameElement.textContent = `Name: ${customerName}`;
+        }
+        if (useridElement) {
+            useridElement.textContent = `ID: ${customerId}`;
+        }
+    };
+
     // Attach event listeners to "Add to Cart" buttons
     addToCartButtons.forEach(button => {
         button.addEventListener('click', () => addToCart(button));
@@ -53,4 +95,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Attach event listeners for search bar functionality
     searchInput.addEventListener('input', filterProducts); // Real-time filtering
     searchButton.addEventListener('click', filterProducts); // Manual filtering via button click
+
+    // Attach event listeners for profile dropdown
+    profileBtn.addEventListener('click', toggleProfileDropdown);
+
+    // Prevent errors if signoutButton does not exist in DOM
+    if (signoutButton) {
+        signoutButton.addEventListener('click', signOut);
+    }
+
+    // Initialize user details
+    if (usernameElement && useridElement) {
+        initializeUserDetails();
+    }
 });

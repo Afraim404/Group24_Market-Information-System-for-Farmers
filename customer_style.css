@@ -93,13 +93,60 @@ nav {
 
 /* Specific Styling for Cart Icon Link */
 #cart-btn {
-    color: hsl(340, 3%, 19%); /* Dark text for contrast */
+    color: hsl(340, 3%, 19%);
     text-decoration: none; /* Removes underline on hover */
 }
 
 #cart-btn:hover {
-    color: white; /* Changes text color to white on hover */
+    color: white;
 }
+
+/* Profile Dropdown */
+#profile-dropdown {
+    position: absolute;
+    top: 5.5rem;
+    right: 1rem;
+    background-color: white; /* Background for the dropdown */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    width: 250px;
+    display: none;
+    z-index: 10;
+}
+
+#profile-dropdown.visible {
+    display: block;
+}
+
+#profile-dropdown p {
+    padding: 10px; /* Padding for spacing */
+    font-size: 14px;
+    color: hsl(340, 3%, 19%);
+    border-bottom: 1px solid #ddd;
+    background-color: #f9f9f9; /* Light gray background for each row */
+}
+
+#profile-dropdown p:last-child {
+    border-bottom: none;
+}
+
+#profile-dropdown button {
+    width: 100%;
+    background-color: #d9534f;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 0 0 5px 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#profile-dropdown button:hover {
+    background-color: #c9302c;
+}
+
 
 /* Hero Section */
 .hero-section {
@@ -217,3 +264,4 @@ footer {
     font-size: 0.9rem;
     border-top: 2px solid hsl(60, 39%, 89%);
 }
+/* Profile Dropdown */

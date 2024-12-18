@@ -36,7 +36,7 @@ if (isset($_SESSION['User_ID']) && $_SESSION['UserType'] === 'Customer') {
             </div>
         </nav>
         <div class="icons">
-            <div class="fa fa-bars" id="menu-btn"></div>
+            <a href="order_graph.php" class="fa fa-chart-bar" id="menu-btn" title="Order Graph"></a>
             <a href="order.php" class="fa fa-shopping-cart" id="cart-btn" title="View Cart"></a>
             <div class="profile-icon">
                 <div class="fa fa-user" id="profile-btn"></div>
