@@ -10,6 +10,24 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+
+
+// Fetch crops data for the chart
+$chartData = [];
+$sql = "SELECT Crop_Name, Crop_Price FROM crop";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $chartData[] = $row;
+    }
+}
+
+
+
+
+
+
+
 function insertCrop($conn, $cropName, $cropUnit, $cropPrice, $cropImage) {
     $stmt = $conn->prepare("INSERT INTO crop (Crop_Name, Crop_Unit, Crop_Price, Crop_Image) VALUES (?, ?, ?, ?)");
     $stmt->bind_param("ssds", $cropName, $cropUnit, $cropPrice, $cropImage);
@@ -112,6 +130,7 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="market.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header class="header">
@@ -146,6 +165,17 @@ $result = $conn->query($sql);
             </button>
         </div>
 
+
+
+
+
+
+
+
+
+
+
+
         <div class="vegetable-table">
             <table id="vegetable-table">
                 <thead>
@@ -161,6 +191,7 @@ $result = $conn->query($sql);
                     <?php
                     // Display crops from the database
                     if ($result->num_rows > 0) {
+                        $result->data_seek(0); // Reset result pointer for table data
                         while ($row = $result->fetch_assoc()) {
                             echo "<tr data-crop-id='" . $row['Crop_ID'] . "'>";
                             echo "<td>" . htmlspecialchars($row['Crop_Name']) . "</td>";
@@ -189,6 +220,25 @@ $result = $conn->query($sql);
                 </tbody>
             </table>
         </div>
+
+
+
+
+
+
+        <!-- Existing main content -->
+        <div class="chart-container" style="width: 80%; margin: 2rem auto;">
+            <canvas id="vegetableChart"></canvas>
+        </div>
+
+
+
+
+
+
+
+
+
     </main>
 
     <!-- Add New Product Modal -->
@@ -351,6 +401,57 @@ $result = $conn->query($sql);
                 overlay.style.display = 'none';
             }
         }
+
+
+
+
+
+        // Get data from PHP for the chart
+        const chartData = <?php echo json_encode($chartData); ?>;
+
+        // Extract labels (vegetable names) and data (prices) from chartData
+        const labels = chartData.map(item => item.Crop_Name);
+        const data = chartData.map(item => item.Crop_Price);
+
+        // Initialize the Chart
+        const ctx = document.getElementById('vegetableChart').getContext('2d');
+        const vegetableChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Price (USD)',
+                    data: data,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Price (USD)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Vegetables'
+                        }
+                    }
+                }
+            }
+        });
+
+
+
+
+
+
     </script>
 </body>
 </html>
