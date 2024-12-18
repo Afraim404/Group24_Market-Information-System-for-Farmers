@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="adminpanel.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="top-header">
+    <div class="header-left">
+      <img src="LogoWhiteBG.jpg" alt="AgriBridge Logo" class="logo" title="AgriBridge">
+    </div>
+    <div class="header-right">
+      <ul class="nav-options">
+        <li><a href="login.html" class="btn-primary">Sign Out</a></li>
+        <li><a href="contact.html" class="btn-secondary">Contact Officers</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <p>Admin Dashboard</p>
+      </div>
+      <ul class="nav-items">
+        <li><a href="homepage.html">Homepage</a></li>
+        <li><a href="gvtdash.html">Government</a></li>
+        <li><a href="farmerdashboard.html">Farmer</a></li>
+        <li><a href="customer.html">Customer</a></li>
+        <li><a href="project.html">Market Prices</a></li>
+        <li><a href="buyer_seller.html">Buyers & Sellers Directory</a></li>
+        <li><a href="#">Historical Prices</a></li>
+        <li><a href="#">Recommendations</a></li>
+        <li><a href="#">Track Goods</a></li>
+        <li><a href="#">Charts</a></li>
+        <li><a href="#">Tables</a></li>
+        <li><a href="#">Settings</a></li>
+      </ul>
+    </aside>
+
+    <div class="main-content">
+      <!-- Stats Section -->
+      <section class="stats-section">
+        <div class="stat-card green">
+          <h3>Total Users</h3>
+          <p id="total-users">Loading...</p>
+        </div>
+        <div class="stat-card orange">
+          <h3>Active Users</h3>
+          <p id="active-users">Loading...</p>
+        </div>
+        <div class="stat-card light-green">
+          <h3>Total Orders</h3>
+          <p id="total-orders">Loading...</p>
+        </div>
+        <div class="stat-card dark-green">
+          <h3>Total Revenue</h3>
+          <p id="total-revenue">Loading...</p>
+        </div>
+      </section>
+
+      <!-- Main Content Section with Charts and Table -->
+      <section class="charts-and-table">
+        <div class="charts-section">
+          <div class="chart-card">
+            <h3>Sales Report</h3>
+            <canvas id="salesChart" width="200" height="150"></canvas>
+          </div>
+          <div class="chart-card">
+            <h3>User Type Distribution</h3>
+            <canvas id="userTypeChart" width="200" height="150"></canvas>
+          </div>
+        </div>
+
+        <section class="table-section">
+          <h3>Registered Users</h3>
+          <table class="user-table">
+            <thead>
+              <tr>
+                <th>User ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="user-table-body">
+              <!-- Rows will be dynamically added here -->
+            </tbody>
+          </table>
+          <button class="btn-primary" id="print-users-btn">Print Users</button>
+        </section>
+      </section>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchDashboardData();
+
+      document.querySelector('#print-users-btn').addEventListener('click', printUsers);
+    });
+
+    async function fetchDashboardData() {
+      try {
+        const response = await fetch('adminpanel.php');
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+        const data = await response.json();
+
+        updateStats(data);
+        populateUserTable(data.users || []);
+        renderCharts(data.user_types || []);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+
+    function updateStats(data) {
+      document.querySelector('#total-users').textContent = data.total_users || 0;
+      document.querySelector('#total-orders').textContent = data.total_orders || 0;
+      document.querySelector('#total-revenue').textContent = `BDT ${Number(data.total_revenue || 0).toFixed(2)}`;
+    }
+
+    function populateUserTable(users) {
+      const tableBody = document.querySelector('#user-table-body');
+      tableBody.innerHTML = users.length
+        ? users.map(user => `
+            <tr>
+              <td>${user.id}</td>
+              <td>${user.username}</td>
+              <td>${user.email}</td>
+              <td>${user.user_type}</td>
+              <td>
+                <button class="btn-primary" aria-label="View user ${user.username}" onclick="viewUser(${user.id})">View</button>
+                <button class="btn-primary" aria-label="Edit user ${user.username}" onclick="editUser(${user.id})">Edit</button>
+                <button class="btn-secondary" aria-label="Delete user ${user.username}" onclick="deleteUser(${user.id})">Delete</button>
+              </td>
+            </tr>
+          `).join('')
+        : '<tr><td colspan="5">No users found</td></tr>';
+    }
+
+    function renderCharts(userTypes) {
+      const userTypeLabels = userTypes.map(type => type.user_type);
+      const userTypeCounts = userTypes.map(type => type.count);
+
+      // User Type Pie Chart
+      new Chart(document.querySelector('#userTypeChart'), {
+        type: 'pie',
+        data: {
+          labels: userTypeLabels,
+          datasets: [{
+            data: userTypeCounts,
+            backgroundColor: ['#60b052', '#ff9f40', '#36a2eb'],
+          }],
+        },
+        options: { plugins: { legend: { position: 'top' } } },
+      });
+
+      // Dummy Sales Chart
+      new Chart(document.querySelector('#salesChart'), {
+        type: 'bar',
+        data: {
+          labels: ['Dhaka', 'Chittagong', 'Comilla', 'Khulna', 'Sylhet', 'Barishal'],
+          datasets: [{
+            label: 'Total Sales (in BDT)',
+            data: [4500, 3200, 5000, 7000, 6000, 4000],
+            backgroundColor: '#60b052',
+          }],
+        },
+        options: { scales: { y: { beginAtZero: true } } },
+      });
+    }
+
+    function printUsers() {
+  const tableRows = document.querySelectorAll('#user-table-body tr');
+  if (tableRows.length === 0) {
+    alert('No user data available to download.');
+    return;
+  }
+
+  // Generate CSV content
+  let csvContent = 'User ID,Name,Email,Role\n'; // CSV header without "Actions"
+  tableRows.forEach(row => {
+    const cells = row.querySelectorAll('td');
+    const rowData = Array.from(cells)
+      .slice(0, -1) // Exclude the last cell (Actions column)
+      .map(cell => `"${cell.textContent}"`) // Escape cell content with quotes
+      .join(',');
+    csvContent += `${rowData}\n`;
+  });
+
+  // Create a Blob from the CSV content
+  const blob = new Blob([csvContent], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+
+  // Create a temporary link to trigger download
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'registered_users.csv';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+
+  // Clean up the URL object
+  URL.revokeObjectURL(url);
+}
+
+
+
+    function editUser(userId) {
+      alert(`Editing user ${userId}`);
+      // Add your edit functionality here
+    }
+
+    function deleteUser(userId) {
+      if (confirm(`Are you sure you want to delete user ${userId}?`)) {
+        alert(`User ${userId} deleted.`);
+        // Add your delete functionality here
+      }
+    }
+  </script>
+</body>
+</html>
