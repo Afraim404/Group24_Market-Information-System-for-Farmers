@@ -1,5 +1,5 @@
 <?php
-include 'db_connection.php'; // Ensure this file connects to your database
+include 'db-connection.php'; // Ensure this file connects to your database
 
 // Fetch data for dropdown filters
 $cropQuery = "SELECT DISTINCT CropName FROM crops";
