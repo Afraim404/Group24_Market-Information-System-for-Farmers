@@ -3,7 +3,7 @@
 session_start();
 
 // Default values for guest
-$customerName = "Guest";
+$customerName = "Admin";
 $customerId = "None";
 
 // Check if the user is logged in and is a Customer
