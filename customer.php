@@ -41,8 +41,8 @@ if (isset($_SESSION['User_ID']) && $_SESSION['UserType'] === 'Customer') {
             <div class="profile-icon">
                 <div class="fa fa-user" id="profile-btn"></div>
                 <div class="dropdown" id="profile-dropdown">
-                    <p id="username">Name: Guest</p>
-                    <p id="userid">ID: None</p>
+                    <p id="username">Name: <?php echo htmlspecialchars($customerName); ?></p>
+                    <p id="userid">ID: <?php echo htmlspecialchars($customerId); ?></p>
                     <form method="POST" action="logout.php">
                         <button type="submit" id="signout-btn" class="dropdown-button">Sign Out</button>
                     </form>

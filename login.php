@@ -1,65 +1,95 @@
 <?php
+// Start the session
 session_start();
 
-// Database connection
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "agribridge";
+// Include the database connection file
+include('db-connection.php');
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+// Initialize error message
+$error_message = "";
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $conn->real_escape_string(trim($_POST['username']));
+    $user_type = $conn->real_escape_string(trim($_POST['user_type']));
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Sanitize and retrieve form data
-    $username = mysqli_real_escape_string($conn, trim($_POST['username']));
-    $user_type = mysqli_real_escape_string($conn, trim($_POST['user_type']));
+    // Check if the username and user type are valid
+    $sql = "SELECT * FROM users WHERE username = ? AND user_type = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $username, $user_type);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    // Debugging input (Optional)
-    // echo "Debug: Entered Username = $username<br>";
-    // echo "Debug: Entered User Type = $user_type<br>";
+    if ($result->num_rows === 1) {
+        // User exists
+        $user = $result->fetch_assoc();
 
-    // Query to check if the username and user type exist in the database
-    $sql = "SELECT * FROM users WHERE username = '$username' AND user_type = '$user_type'";
-    
-    // Debugging query (Optional)
-    // echo "Debug: SQL Query = $sql<br>";
+        // Store user information in the session
+        $_SESSION['User_ID'] = $user['id'];
+        $_SESSION['Username'] = $user['username'];
+        $_SESSION['UserType'] = $user['user_type'];
 
-    $result = $conn->query($sql);
-
-    if ($result && $result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        
-        // Debugging if the user is found (Optional)
-        // echo "Debug: User found!<br>";
-
-        // Set session variables
-        $_SESSION['user_id'] = $row['id']; // Use the correct column name for ID
-        $_SESSION['username'] = $row['username'];
-        $_SESSION['user_type'] = $row['user_type'];
-
-        // Redirect based on user type
-        if ($row['user_type'] === 'Admin') {
-            header("Location: adminpanel.html");
-        } elseif ($row['user_type'] === 'Farmer') {
-            header("Location: farmerdashboard.html");
-        } elseif ($row['user_type'] === 'Officer') {
-            header("Location: gvtdash.html");
-        } elseif ($row['user_type'] === 'Customer') {
-            header("Location: customer.html");
-        } else {
-            // Optional: Handle invalid user type
-            echo "Invalid user type.<br>";
+        // Redirect to the dashboard based on user type
+        switch ($user['user_type']) {
+            case 'Farmer':
+                header('Location: farmerdashboard.html');
+                break;
+            case 'Officer':
+                header('Location: gvtdash.html');
+                break;
+            case 'Customer':
+                header('Location: customer.php');
+                break;
+            case 'Admin':
+                header('Location: adminpanel.html');
+                break;
+            default:
+                $error_message = "Invalid user type.";
         }
-        exit;
+        exit();
     } else {
-        echo "Invalid Username or User Type<br>";
+        $error_message = "Invalid username or user type.";
     }
 }
-
-$conn->close();
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="login.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="wrapper">
+        <form action="" method="POST">
+            <h1>Login</h1>
+            <?php if (!empty($error_message)) { ?>
+                <div class="error-message"> <?php echo $error_message; ?> </div>
+            <?php } ?>
+            <div class="input-box">
+                <input type="text" name="username" placeholder="Username" required>
+                <i class='bx bxs-user'></i>
+            </div>
+            <div class="input-box">
+                <select name="user_type" required>
+                    <option value="" disabled selected>Select User Type</option>
+                    <option value="Farmer">Farmer</option>
+                    <option value="Officer">Officer</option>
+                    <option value="Customer">Customer</option>
+                    <option value="Admin">Admin</option>
+                </select>
+            </div>
+            <button type="submit" class="btn">Login</button>
+            <div class="register-link">
+                <p>Don't have an account? <a href="register.html">Register</a></p>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

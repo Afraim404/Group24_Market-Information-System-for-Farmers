@@ -2,7 +2,7 @@
 include 'db-connection.php'; // Ensure this file connects to your database
 
 // Fetch data for dropdown filters
-$cropQuery = "SELECT DISTINCT CropName FROM crops";
+$cropQuery = "SELECT DISTINCT CropName FROM crops_catagory";
 $yearQuery = "SELECT DISTINCT Year FROM pricehistory ORDER BY Year";
 
 $crops = $conn->query($cropQuery);
@@ -14,15 +14,15 @@ $selectedYear = $_GET['year'] ?? '';
 $selectedSeason = $_GET['season'] ?? '';
 
 $conditions = [];
-if ($selectedCrop) $conditions[] = "crops.CropName = '$selectedCrop'";
+if ($selectedCrop) $conditions[] = "crops_catagory.CropName = '$selectedCrop'";
 if ($selectedYear) $conditions[] = "pricehistory.Year = '$selectedYear'";
 if ($selectedSeason) $conditions[] = "pricehistory.Season = '$selectedSeason'";
 
 $whereClause = $conditions ? 'WHERE ' . implode(' AND ', $conditions) : '';
 
-$sql = "SELECT crops.CropName, pricehistory.Year, pricehistory.Season, pricehistory.Price
+$sql = "SELECT crops_catagory.CropName, pricehistory.Year, pricehistory.Season, pricehistory.Price
         FROM pricehistory
-        JOIN crops ON pricehistory.CropID = crops.CropID
+        JOIN crops_catagory ON pricehistory.CropID = crops_catagory.CropID
         $whereClause
         ORDER BY pricehistory.Year, pricehistory.Season";
 

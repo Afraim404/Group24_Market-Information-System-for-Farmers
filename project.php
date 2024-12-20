@@ -420,7 +420,7 @@ $result = $conn->query($sql);
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Price (USD)',
+                    label: 'Price (Taka)',
                     data: data,
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgba(75, 192, 192, 1)',
